@@ -1,0 +1,7 @@
+.filter_dropdown > [class*="p dropdown"] {
+  border-radius: 3em !important;
+}
+.filter_dropdown.p-dropdown {
+  border-radius: 3em !important;
+  border: 1px solid #ced4da !important;
+}
