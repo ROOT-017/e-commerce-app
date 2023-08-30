@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import classes from "./Filter.module.css";
+import "./Filter.module.css";
 
 const Filter = () => {
   //   console.log(props);

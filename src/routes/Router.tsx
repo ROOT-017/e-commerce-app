@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-
+import React, { lazy } from "react";
 import RootLayout from "../components/layout/Rootlayout";
 import Home from "../pages/Home";
+import ProductDetail from "../pages/ProductDetail";
+import ProductCategories from "../pages/ProductCategories";
 
-//createBrowserRouter is a function that returns a BrowserRouter component with tpescript types
 const Router = createBrowserRouter([
   {
-    //BrowserRouter component props
     path: "/",
     element: <RootLayout />,
     children: [
@@ -15,12 +15,16 @@ const Router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/about",
-        element: <h1>About Page</h1>,
+        path: "/products",
+        element: <ProductCategories />,
       },
       {
-        path: "/product",
-        element: <h1>Product Page</h1>,
+        path: "/products/:category/:id",
+        element: <ProductDetail />,
+      },
+      {
+        path: "/product/categories/:category",
+        element: <div>Catery</div>,
       },
     ],
   },

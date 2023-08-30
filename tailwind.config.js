@@ -64,6 +64,7 @@ module.exports = {
           800: "#faead1",
           900: "#fcf5e8",
         },
+        background: `#F5F6F6`,
       },
       fontFamily: {
         poppins: ["Poppins"],

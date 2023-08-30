@@ -4,7 +4,7 @@ import classes from "./Hero.module.css";
 
 const Hero = () => {
   return (
-    <div className="flex w-full pl-4 bg-burnt_sienna-900 lg:pl-32 font-poppins">
+    <div className="flex w-full pl-4 h-[12em] lg:h-auto bg-burnt_sienna-900 lg:pl-32 font-poppins">
       <div className="lg:w-1/2 m-auto">
         <p className="text-[0.875rem] leading-[1.25rem] lg:leading-normal  lg:text-[3em]   font-[600] text-cambridge_blue-200">
           Grab Upto 50% Off On
@@ -18,9 +18,9 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <div className="w-1/2 flex h-fit items-end ">
+      <div className="w-1/2 flex lg:h-fit items-end ">
         <img
-          className={classes.img}
+          className={`${classes.img} lg:h-auto h-[8em] `}
           src={heroImg}
           alt="girl-wearing-headset"
           unselectable={`on`}

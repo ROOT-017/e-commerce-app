@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { store } from "./store/index";
+import { Provider } from "react-redux";
+
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
@@ -15,7 +18,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
