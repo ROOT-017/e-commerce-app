@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="md:w-1/3  gap-2 flex   flex-col justify-between pb-4 h-full">
             <div>
               <p>
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo" className="lg:w-[10em]"/>
               </p>
               <p className="lg:text-2xl text-xl ">Let's Shop Beyond Boundries</p>
             </div>
