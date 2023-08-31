@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import React, { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { BsGridFill } from "react-icons/bs";
 import { LiaOpencart } from "react-icons/lia";
@@ -7,6 +6,9 @@ import { IconContext } from "react-icons/lib";
 import Dropdown from "../filters/Dropdown";
 import { Link } from "react-router-dom";
 import SearchBar from "../ui/SearchBar";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { toggleCartModal } from "../../store/modalSlice";
+import logo from "../../components/assets/logo.png";
 
 const options = [
   { label: "Option 1", value: "option1" },
@@ -15,20 +17,36 @@ const options = [
 ];
 
 const Navbar = () => {
+  const { totalQuantity: quantity } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
   const [seachTerm, setSearchTerm] = useState("");
+  const [bounce, setBounce] = useState("");
+
   const handleSearch = (text: string) => {
     if (text === "") return;
     console.log(text);
     setSearchTerm(text);
   };
+
+  useEffect(() => {
+    setBounce("animate__bounceIn");
+    setTimeout(() => {
+      setBounce("");
+    }, 1000);
+  }, [quantity]);
+
+  const handleClick = () => {
+    dispatch(toggleCartModal(true));
+  };
+
   return (
     <IconContext.Provider
       value={{ className: "", size: "1.5em", color: `#5d987b` }}
     >
-      <div className="flex w-full px-2 lg:px-0 py-2 lg:py-4 items-center justify-between ">
+      <div className="flex w-full  lg:px-0 py-2 lg:py-4 items-center justify-between ">
         <Link to={`/`}>
           {" "}
-          <h1>Logo</h1>
+          <img src={logo} alt="logo" className="lg:w-[15em]" />
         </Link>
         <ul className="hidden lg:flex items-center justify-between gap-4">
           <li>
@@ -51,9 +69,12 @@ const Navbar = () => {
               </p>
               <button>Sign In</button>
             </li>
-            <li className="flex  gap-2 justify-center items-center hover:bg-cambridge_blue-800 rounded-full p-2 transition-colors duration-300 ease-in-out">
+            <li
+              className={`${bounce} flex gap-2 justify-center items-center hover:bg-cambridge_blue-800 rounded-full p-2 transition-colors duration-300 ease-in-out`}
+              onClick={handleClick}
+            >
               <span className="text-lg font-semibold text-cambridge_blue-400">
-                10
+                {quantity}
               </span>
               <LiaOpencart className="font-bold" />
               <span>Cart</span>

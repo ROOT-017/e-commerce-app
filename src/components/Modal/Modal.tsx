@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
 import SearchBar from "../ui/SearchBar";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleModal } from "../../store/modalSlice";
+import { toggleModal,toggleCartModal } from "../../store/modalSlice";
 import Spinder from "../ui/Spinder";
 interface ModalPropsTypes {}
 

@@ -37,7 +37,6 @@ const productSlice = createSlice({
         products: any[];
       }>
     ) {
-      console.log(action.payload);
       state.products.category = action.payload.category;
       state.products.products = action.payload.products;
       state.loading = false;
@@ -61,7 +60,6 @@ const productSlice = createSlice({
       state.loading = true;
     },
     setCategories(state: ProductStateType, action: PayloadAction<string[]>) {
-      console.log(action.payload);
       state.categories = action.payload;
       state.loading = false;
     },

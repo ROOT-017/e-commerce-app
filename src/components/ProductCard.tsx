@@ -4,13 +4,26 @@ import Button from "./ui/Button";
 import { Link } from "react-router-dom";
 import { BsFillSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import ReactStars from "react-rating-star-with-type";
-
+import { useAppDispatch } from "../store/hooks";
+import { addProduct } from "../store/cartSlice";
 interface PropsTypes {
-  product?: any;
+  product: any;
+}
+export interface CartItemType {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
 }
 
 const ProductCard = ({ product }: PropsTypes) => {
   const [isLiked, setLiked] = useState(false); // [false,()=>{}
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (item: CartItemType) => {
+    dispatch(addProduct(item));
+  };
+
   const handleLike = () => {
     setLiked((preState) => !preState);
   };
@@ -52,7 +65,15 @@ const ProductCard = ({ product }: PropsTypes) => {
           </div>
         </Link>
         <div>
-          <Button text="Add to Cart" />
+          <Button
+            text="Add to Cart"
+            handleClick={handleAddToCart.bind(null, {
+              id: product.id,
+              title: product.title,
+              price: product.price,
+              quantity: 1,
+            })}
+          />
         </div>
       </div>
     </div>

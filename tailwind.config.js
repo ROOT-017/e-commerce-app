@@ -69,6 +69,11 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins"],
       },
+      backgroundImage: (theme) => ({
+        "hero-pattern":
+          "url('/src/assets/clothing-hung-wooden-hangers-dividers-07060443-928f40e3d3224b9a932ef3bcc8b43c02.jpg')",
+        "footer-texture": "url('/src/assets/717bQf6RxsL.jpg')",
+      }),
     },
   },
   plugins: [],

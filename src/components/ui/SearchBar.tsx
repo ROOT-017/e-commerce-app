@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { toggleModal } from "../../store/modalSlice";
 
 interface SearchBarPropsTypes {

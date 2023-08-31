@@ -1,20 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Hero from "../components/Hero";
 // import FilterSection from "../components/filters/FilterSection";
-import Products from "../components/Products";
-import Category from "../components/filters/Category";
+import Products from "./Products";
+import Category from "../components/filters/Categories";
 import { Skeleton } from "primereact/skeleton";
 import { SendRequest } from "../components/Request/clientApi";
-
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
-import { RootState } from "../store";
+import { RootState } from "../store/store";
 
 import {
   getCategories,
   getProduct,
   setCategories,
-  setProduct,
   setProducts,
   setProductsFailure,
 } from "../store/productSlice";
@@ -170,12 +168,22 @@ const Home = () => {
     <div>
       <Hero />
       <div className="py-4  lg:py-12 px-2 flex gap-2 lg:gap-4 flex-wrap">
-        {categories.slice(0, 4).map((category) => (
+        {/* {categories.slice(0, 4).map((category) => (
           <Category category={category} key={category} />
-        ))}
-        {categories.length > 0 && (
-          <Category category="Electronics" more={true} />
-        )}
+        ))} */}
+        <div className="flex  w-full lg:hidden gap-2 justify-evenly">
+          {categories.slice(0, 4).map((category) => (
+            <Category category={category} key={category} />
+          ))}
+          <Category category="more" more={true} />
+        </div>
+        <div className="hidden  w-full lg:flex  gap-6 justify-evenly">
+          {categories.slice(0, 8).map((category) => (
+            <Category category={category} key={category} />
+          ))}
+          <Category category="more" more={true} />
+        </div>
+        {/* {categories.length > 0 && <Category category="more" more={true} />} */}
         {categories.length === 0 && (
           <>
             <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
@@ -186,11 +194,6 @@ const Home = () => {
         )}
       </div>
 
-      {/* <Products products={products.products} category={products.category} /> */}
-      {/* <Products
-        products={randomProductCat.products}
-        category={randomProductCat.category}
-      /> */}
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
           {products.products.length === 0 && (

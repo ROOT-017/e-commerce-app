@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Pagnation from "../components/pagination/Pagination";
-import image from "../components/assets/images__1_-removebg-preview.png";
 import { useParams } from "react-router-dom";
 import AmountSelector from "../components/AmoutSelector";
 import Buttn from "../components/ui/Buttn";
@@ -15,30 +14,34 @@ import { IconContext } from "react-icons/lib";
 import { SendRequest } from "../components/Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { Skeleton } from "primereact/skeleton";
-
+import type { CartItemType } from "../components/ProductCard";
 import {
   getProduct,
   setProduct,
   setProductFailure,
 } from "../store/productSlice";
+import { addProduct } from "../store/cartSlice";
 
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((state) => state.products);
-
+  const [thumbnail, setThumbnail] = useState("");
   const { id } = useParams();
   const [isValue, setValue] = useState(1);
   const [isColor, setColor] = useState({
     name: "",
     color: "#00ff00",
   });
-  const handleAdd = () => {
-    console.log(isValue);
+  const handleIncrement = () => {
     setValue((preState) => (preState += 1));
   };
-  const handleSubstract = () => {
+  const handleDecrement = () => {
     if (isValue === 1) return;
     setValue((preState) => (preState -= 1));
+  };
+
+  const handleThumbnail = (thumbnail: string) => {
+    setThumbnail(thumbnail);
   };
 
   const handleColor = (color: string) => {
@@ -49,6 +52,11 @@ const ProductDetail = () => {
         color: color,
       };
     });
+  };
+
+  const handleAddToCart = (item: CartItemType) => {
+    dispatch(addProduct(item));
+    setValue(1);
   };
 
   const fetchProduct = useCallback(async () => {
@@ -87,10 +95,14 @@ const ProductDetail = () => {
         />
       )}
       <div className="lg:flex lg:min-h-[85vh] p-2 lg:p-0">
-        <div className="lg:w-1/2 h-[18em] lg:h-auto lg:min-h-full font-poppins">
+        <div className="lg:w-1/2 h-[18em] lg:h-[85vh] lg:min-h-full font-poppins">
           {product && (
             <div className="flex justify-center items-center h-[80%] bg-background rounded-lg">
-              <img src={product.thumbnail} alt={id} className="lg:h-2/3" />
+              <img
+                src={thumbnail.length > 0 ? thumbnail : product.thumbnail}
+                alt={id}
+                className="lg:h-2/3  max-h-full"
+              />
             </div>
           )}
           {!product && (
@@ -110,6 +122,7 @@ const ProductDetail = () => {
                   <li
                     key={image}
                     className="bg-background rounded-lg lg:h-full p-4 h-[4em] lg:p-8 flex justify-center items-center w-1/4"
+                    onClick={handleThumbnail.bind(null, image)}
                   >
                     <img
                       src={image}
@@ -130,8 +143,8 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="lg:w-1/2  lg:px-12 font-poppins">
-          <ProductDetailSection>
-            {!product && (
+          {!product && (
+            <ProductDetailSection>
               <div className="flex flex-col gap-2">
                 <div>
                   <Skeleton className="mb-2" height="4rem"></Skeleton>
@@ -154,24 +167,24 @@ const ProductDetail = () => {
                   <Skeleton width="50%" className="mb-2"></Skeleton>
                 </div>
               </div>
-            )}
-          </ProductDetailSection>
+            </ProductDetailSection>
+          )}
           {product && (
             <>
-              {" "}
               <ProductDetailSection>
                 <p className="text-xl lg:text-3xl font-bold text-slate-500 pb-2">
                   {product.title}
                 </p>
                 <p className="text-xs">{product.description}</p>
-                <p className="pt-2 flex">
+                <div className="pt-2 flex">
                   <Rating value={product.rating} readOnly cancel={false} />
                   <span className="text-lg">(2365)</span>
-                </p>
+                </div>
               </ProductDetailSection>
               <ProductDetailSection>
                 <p className="lg:text-2xl text-lg font-bold text-slate-500">
-                  ${product.price.toFixed(2)} or 99.99/month
+                  ${product.price.toFixed(2)}{" "}
+                  {product.price > 200 && "or 99.99/month"}
                 </p>
                 <p className="text-xs">
                   Suggested monthly payments with 6-month special financing.{" "}
@@ -195,8 +208,8 @@ const ProductDetail = () => {
                 <div className="flex items-center gap-3 font-poppins">
                   <div>
                     <AmountSelector
-                      handleAdd={handleAdd}
-                      handleSubstarct={handleSubstract}
+                      handleAdd={handleIncrement}
+                      handleSubstarct={handleDecrement}
                       value={isValue}
                     />
                   </div>
@@ -210,7 +223,15 @@ const ProductDetail = () => {
                 </div>
                 <div className="flex items-center gap-3 pt-4">
                   <Buttn text="Buy Now" />
-                  <ButtonEmpty text="Add to Cart" />
+                  <ButtonEmpty
+                    text="Add to Cart"
+                    handleClick={handleAddToCart.bind(null, {
+                      id: product.id,
+                      title: product.title,
+                      price: product.price,
+                      quantity: isValue,
+                    })}
+                  />
                   {/* <Button text="Add to Cart" styles="bg-cambridge_blue w-[6em]" /> */}
                 </div>
               </ProductDetailSection>

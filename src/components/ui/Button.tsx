@@ -4,9 +4,10 @@ interface propsType {
   styles?: string;
   fill?: boolean;
   width?: string;
+  handleClick?: () => void;
 }
 
-const Button = ({ text, styles, fill, width }: propsType) => {
+const Button = ({ text, styles, fill, width, handleClick }: propsType) => {
   const buttonFill = fill ? "  " : null;
 
   return (
@@ -17,6 +18,7 @@ const Button = ({ text, styles, fill, width }: propsType) => {
         buttonFill +
         width
       }
+      onClick={handleClick}
     >
       {text}
     </button>

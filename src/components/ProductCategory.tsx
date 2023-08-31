@@ -13,7 +13,7 @@ const ProductCategory = ({ products, category }: PropsTypes) => {
         {category + " For You" || " Headphones For You"}
         <span className="text-cambridge_blue-200">!</span>
       </h1>
-      <div className="flex w-full flex-wrap gap-2 lg:gap-6">
+      <div className="flex w-full flex-wrap gap-2 justify-evenly lg:gap-6">
         {products.map((product) => (
           <ProductCard product={product} key={product.title} />
         ))}

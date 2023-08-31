@@ -3,10 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface ModalStateType {
   isModal: boolean;
+  isCartModal: boolean;
 }
 
 const initialState: ModalStateType = {
   isModal: false,
+  isCartModal: false,
 };
 
 const modalSlice = createSlice({
@@ -16,8 +18,11 @@ const modalSlice = createSlice({
     toggleModal(state: ModalStateType, action: PayloadAction<boolean>) {
       state.isModal = action.payload;
     },
+    toggleCartModal(state: ModalStateType, action: PayloadAction<boolean>) {
+      state.isCartModal = action.payload;
+    },
   },
 });
 
-export const { toggleModal } = modalSlice.actions;
+export const { toggleModal, toggleCartModal } = modalSlice.actions;
 export default modalSlice.reducer;

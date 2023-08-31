@@ -4,6 +4,8 @@ import RootLayout from "../components/layout/Rootlayout";
 import Home from "../pages/Home";
 import ProductDetail from "../pages/ProductDetail";
 import ProductCategories from "../pages/ProductCategories";
+import ProductsPage from "../pages/Products";
+import CategoriesDetails from "../pages/CategoriesDetails";
 
 const Router = createBrowserRouter([
   {
@@ -15,16 +17,22 @@ const Router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/products",
-        element: <ProductCategories />,
-      },
-      {
-        path: "/products/:category/:id",
-        element: <ProductDetail />,
-      },
-      {
-        path: "/product/categories/:category",
-        element: <div>Catery</div>,
+        path: "products",
+        element: <ProductsPage />,
+        children: [
+          {
+            index: true,
+            element: <ProductCategories />,
+          },
+          {
+            path: "categories/:category",
+            element: <CategoriesDetails />,
+          },
+          {
+            path: ":category/:id",
+            element: <ProductDetail />,
+          },
+        ],
       },
     ],
   },

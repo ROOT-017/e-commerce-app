@@ -16,7 +16,7 @@ const Category = (props: categoryProps) => {
           <div className="lg:h-[6em] h-10 lg:w-[6em] w-10 p-2 rounded-full flex justify-center items-center bg-background">
             <img src={img} alt="category" />
           </div>
-          <Link to={`product/categories/${category}`}>
+          <Link to={`products/categories/${category}`}>
             <p className="w-fit lg:text-base font-poppins text-xs text-gray-500 capitalize">
               {props.category || "category"}
             </p>
