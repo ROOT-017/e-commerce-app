@@ -3,6 +3,7 @@ import { IoLogoTwitter } from "react-icons/io";
 import { BsInstagram, BsGithub, BsGlobe } from "react-icons/bs";
 import { FaLinkedin } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
+import logo from "../../components/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -15,7 +16,7 @@ const Footer = () => {
           <div className="md:w-1/3  gap-2 flex   flex-col justify-between pb-4 h-full">
             <div>
               <p>
-                <img src="" alt="" />
+                <img src={logo} alt="logo" />
               </p>
               <p className="lg:text-2xl text-xl ">Let's Shop Beyond Boundries</p>
             </div>
