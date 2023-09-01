@@ -99,10 +99,11 @@ const Footer = () => {
         </div>
         <div className="h-[4em] bg-[#000000de]"></div>
         <div className="h-[4em] bg-[#000000de] gap-4 text-sm flex justify-center items-center p-4">
-          &copy;2001-{new Date().getFullYear()}{" "}
+          &copy;1997-{new Date().getFullYear()}{" "}
           <span className="font-poppins ">
-            Made with &#9829; &#x2665; from Cameroon
+            Made with &#9829; from Cameroon
           </span>
+          <span className="text-sm text-gray-400">creator @terence</span>
         </div>
       </div>
     </IconContext.Provider>
