@@ -36,7 +36,7 @@ const ProductCard = ({ product }: PropsTypes) => {
       >
         {isLiked ? <BsFillSuitHeartFill color="red" /> : <BsSuitHeart />}
       </div>
-      <div className="bg-background  h-[15em] rounded-md flex justify-center items-center">
+      <div className="bg-background overflow-hidden  h-[15em] rounded-md flex justify-center items-center">
         <img
           src={product.thumbnail || productImg}
           alt="product"

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactDom from "react-dom";
 import SearchBar from "../ui/SearchBar";
 import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleModal,toggleCartModal } from "../../store/modalSlice";
+import { toggleModal, toggleCartModal } from "../../store/modalSlice";
 import Spinder from "../ui/Spinder";
+import { SendRequest } from "../Request/clientApi";
+import { HiChevronDoubleRight } from "react-icons/hi";
+import { Link } from "react-router-dom";
 interface ModalPropsTypes {}
 
 const BackDrop = () => {
@@ -24,6 +27,8 @@ const BackDrop = () => {
 
 const ModalContent = (props: ModalPropsTypes) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
   const { isModal } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
 
@@ -31,24 +36,86 @@ const ModalContent = (props: ModalPropsTypes) => {
     dispatch(toggleModal(!isModal));
   };
 
+  const fetchSearch = useCallback(async () => {
+    if (searchTerm.trim() === "") return;
+    const res = await SendRequest({
+      method: "GET",
+      url: "/products/search",
+      params: {
+        q: searchTerm,
+      },
+    });
+    let uniqueCategory = new Set();
+    res.products.map((item: any) => uniqueCategory.add(item.category));
+    if (uniqueCategory.size > 0) {
+      localStorage.setItem(
+        "categories",
+        JSON.stringify([...Array.from(uniqueCategory).slice(0, 5)])
+      );
+    }
+
+    setSearchResult(res.products);
+  }, [searchTerm]);
+
   const handleSearch = (text: string) => {
-    if (text === "") return;
-    console.log(text);
+    if (text.trim() === "") return;
     setSearchTerm(text);
   };
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") return;
+    // perform search only when user stops typing
+    setIsTyping(true);
+    const timer = setTimeout(() => {
+      setIsTyping(false);
+      console.log("fetching");
+      fetchSearch();
+    }, 700);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchTerm, fetchSearch]);
   return (
-    <div className="absolute top-0 left-0 z-20 flex flex-col items-center  w-full justify-center p-4 ">
+    <div className="absolute top-0 left-0 z-20 min-h-[6em] flex flex-col items-center  w-full justify-center p-4 ">
       <div className="bg-white rounded-t-2xl lg:w-1/2 w-full">
         <SearchBar seachTerm={handleSearch} />
       </div>
-      <ul className="h-[8em] bg-white lg:w-1/2 font-poppins px-1">
-        <li className="py-4">
-          Lorem ipsum dolor sit, amet consectetur adipisicing
-        </li>
-      </ul>
-      <div className="flex justify-center bg-white w-full lg:w-1/2 pb-2">
-        <Spinder />
+      <div className="h-[6em] bg-white w-full lg:w-1/2">
+        {searchResult.length === 0 && (
+          <p className="py-4 px-2 text-center text-gray-400">
+            Search a product above
+          </p>
+        )}
+        {searchResult.length > 0 && (
+          <ul className="bg-white  font-poppins px-1 pb-2">
+            {searchResult.map((item: any) => (
+              <Link
+                onClick={handleModal}
+                to={`/products/${item.category}/${item.id}`}
+                key={item.id}
+              >
+                {" "}
+                <li className="flex justify-between px-4 py-4 border-b border-cambridge_blue-700">
+                  <span>
+                    <img
+                      src={item.thumbnail}
+                      alt={item.title}
+                      className="h-6"
+                    />
+                  </span>
+                  <span className="truncate">{item.title}</span>
+                  <HiChevronDoubleRight />{" "}
+                </li>
+              </Link>
+            ))}
+          </ul>
+        )}
       </div>
+      {isTyping && (
+        <div className="flex justify-center bg-white w-full lg:w-1/2 pb-2">
+          <Spinder />
+        </div>
+      )}
     </div>
   );
 };

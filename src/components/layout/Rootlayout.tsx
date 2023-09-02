@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Navbar from "../navigation/Navbar";
 import Modal from "../Modal/Modal";
+import Home from "../../pages/Home";
 
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -33,6 +34,7 @@ const RootLayout = () => {
   return (
     <div className="lg:px-12">
       <CartModal />
+
       <Modal />
       <Navbar />
       <Outlet />

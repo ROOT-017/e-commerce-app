@@ -8,9 +8,10 @@ import { RiAddBoxFill } from "react-icons/ri";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
 import Buttn from "../ui/Buttn";
-import { addProduct, removeProduct } from "../../store/cartSlice";
+import { addProduct, removeProduct, clearCart } from "../../store/cartSlice";
 import { CartItemType } from "../ProductCard";
 import { FaOpencart } from "react-icons/fa";
+import ButtonEmpty from "../button/ButtonEmpty";
 
 const CartModalContnt = () => {
   const { products, totalPrice, totalQuantity } = useAppSelector(
@@ -28,8 +29,10 @@ const CartModalContnt = () => {
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeProduct(id));
   };
-  const handleRemoveAllFromCart = (item: CartItemType) => {};
 
+  const clearCartHandler = () => {
+    dispatch(clearCart());
+  };
   return (
     <IconContext.Provider
       value={{ size: "1.5em", className: "cursor-pointer" }}
@@ -42,19 +45,21 @@ const CartModalContnt = () => {
           <CgClose size={"2em"} />
         </div>
         <div className="w-full h-full bg-cambridge_blue-700  rounded-lg">
-          <div className="text-center flex justify-center items-center text-xl  py-4 border-gray-200">
+          <p className="text-center flex justify-center items-center lg:text-xl  py-4 border-gray-200">
             <span className="px-2">
-              {" "}
               <FaOpencart color="#d7502b" size={`1.5em`} />
             </span>{" "}
-            you have {totalQuantity} in your card
-          </div>
-          <div className="w-full  lg:min-h-[24em]  lg:min-w-[32em] p-4 flex  flex-col ">
+            You have {totalQuantity} products in your card
+          </p>
+          <div className="w-full  lg:min-h-[24em] p-4 flex  flex-col ">
             <div className="min-h-[22em] lg:max-h-[48em] max-h-[25em] overflow-auto w-full rounded-lg  bg-[#e6edfa]">
               <ul className="p-2 h-full   ">
                 {" "}
                 {products.map((product) => (
-                  <li className=" border-b-2 hover:bg-background text-xl py-2 border-gray-200 inline-flex w-full justify-between ">
+                  <li
+                    key={product.title}
+                    className=" border-b-2 hover:bg-background text-xl py-2 border-gray-200  inline-flex w-full justify-between "
+                  >
                     {product.title}{" "}
                     <span className="px-4">{`x${product.quantity}`}</span>{" "}
                     <span> ${product.price}</span>
@@ -83,10 +88,22 @@ const CartModalContnt = () => {
               <p className="text-2xl  font-bold text-gray-500">
                 Total <span>${totalPrice}</span>
               </p>
-              <Buttn
-                text="Checkout"
-                styles="bg-cambridge_blue-400 text-white w-full"
-              />
+              <div className="lg:flex gap-1 hidden">
+                {" "}
+                <ButtonEmpty text="Clear Cart" handleClick={clearCartHandler} />
+                <Buttn
+                  text="Checkout"
+                  styles="bg-cambridge_blue-400 text-white w-full"
+                />
+              </div>
+              <div className="lg:hidden gap-1 ">
+                {" "}
+                <ButtonEmpty text="Clear Cart" handleClick={clearCartHandler} />
+                <Buttn
+                  text="Checkout"
+                  styles="bg-cambridge_blue-400 text-white w-full"
+                />
+              </div>
             </div>
             {/* <div className="h-2/3 w-full bg-red-500 mx-2  rounded-lg"></div>
             <div className="bg-red-500 w-full">

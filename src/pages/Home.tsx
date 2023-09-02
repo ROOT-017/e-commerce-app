@@ -6,6 +6,7 @@ import Category from "../components/filters/Categories";
 import { Skeleton } from "primereact/skeleton";
 import { SendRequest } from "../components/Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { auth } from "../auth/firebase";
 
 import { RootState } from "../store/store";
 
@@ -18,15 +19,19 @@ import {
 } from "../store/productSlice";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
 import ProductCategory from "../components/ProductCategory";
+import exp from "constants";
 
 export interface ProductsTypes {
   category: string;
   products: any[];
 }
+
 const initialProducts = {
+  message: "",
   category: "",
   products: [],
 };
+
 let cat = [
   "smartphones",
   "laptops",
@@ -54,28 +59,12 @@ const radCat = cat[randomIndex];
 
 const Home = () => {
   //Redux state
-  const { product, products, loading, error, categories } = useAppSelector(
+  const { products, categories } = useAppSelector(
     (state: RootState) => state.products
   );
   const dispatch = useAppDispatch();
 
-  // const [products, setProducts] = useState<ProductsTypes>(initialProducts);
-  // const [categories, setCategories] = useState([""]);
-  // const [randomProductCat, setRandomProductCat] =
-  //   useState<ProductsTypes>(initialProducts);
-
-  // const handleCategories = useCallback((categories: string[]) => {
-  //   // console.log(categories);
-  //   setCategories(categories);
-  // }, []);
-
-  // const handleProducts = useCallback((products: any[], category: string) => {
-  //   dispatch({ type: "SET_PRODUCTS", payload: products });
-  //   // setProducts({
-  //   //   category: category,
-  //   //   products: products,
-  //   // });
-  // }, []);
+  const [searchHistory, setSearchHistory] = useState(initialProducts);
 
   const handleRandomProductCat = useCallback(
     (products: any[], category: string) => {
@@ -158,11 +147,39 @@ const Home = () => {
     }
   }, [dispatch]);
 
+  const fetchHistory = useCallback(async () => {
+    const historyCategory = JSON.parse(localStorage.getItem("categories")!);
+    if (!historyCategory) return;
+
+    const cat =
+      JSON.parse(localStorage.getItem("categories")!)[0] === "smartphones"
+        ? JSON.parse(localStorage.getItem("categories")!)[1]
+        : JSON.parse(localStorage.getItem("categories")!)[0];
+
+    const res = await SendRequest({
+      method: "GET",
+      url: "/products/category/" + cat,
+    });
+    if (res) {
+      if (res.error) {
+        console.log(res.error);
+        return;
+      }
+    }
+    if (res) {
+      setSearchHistory({
+        message: "You Might Like",
+        category: `${cat}`,
+        products: res.products,
+      });
+    }
+  }, []);
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
-    // fetchRandomProductCat();
-  }, [fetchCategories, fetchProducts, fetchRandomProductCat]);
+    fetchHistory();
+  }, [fetchCategories, fetchProducts, fetchRandomProductCat, fetchHistory]);
 
   return (
     <div>
@@ -193,7 +210,6 @@ const Home = () => {
           </>
         )}
       </div>
-
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
           {products.products.length === 0 && (
@@ -214,9 +230,40 @@ const Home = () => {
             />
           )}
         </div>
+      </div>{" "}
+      <div className="px-4 lg:px-0 pb-4">
+        <div className="flex flex-wrap gap-2 lg:gap-6">
+          {products.products.length === 0 && (
+            <>
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+              <ProductCardSkeletonLoader />
+            </>
+          )}
+          {searchHistory.products.length > 0 && (
+            <ProductCategory
+              products={searchHistory.products}
+              category={searchHistory.category.split("-").join(" ")}
+              message={searchHistory.message}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Home;
+
+// export const AppLoader = () => {
+//   const userData = JSON.parse(localStorage.getItem("userData")!);
+//   if (userData) {
+
+//     return <Home />;
+//   }
+//   auth.onAuthStateChanged((user) => {});
+// };

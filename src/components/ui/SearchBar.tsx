@@ -11,15 +11,18 @@ interface SearchBarPropsTypes {
 const SearchBar = (props: SearchBarPropsTypes) => {
   const { isModal } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const searchbar = document.getElementById("search-bar");
     if (searchbar) {
       searchbar.focus();
     }
   }, [isModal]);
+
   const openModal = () => {
     dispatch(toggleModal(true));
   };
+
   return (
     <div
       className="flex rounded-full  bg-[#e6efeb5c] overflow-hidden justify-center items-center px-2 cursor-pointer"
@@ -43,7 +46,7 @@ const SearchBar = (props: SearchBarPropsTypes) => {
             id="search-bar"
             placeholder="Search Products"
             className=" lg:flex lg:text-xl w-full border-none bg-transparent text-cambridge_blue  p-2 focus:outline-none focus:border-none "
-            onChange={(e) => props.seachTerm(e.target.value)}
+            onChange={(e) => props.seachTerm(e.target.value.trim())}
           />{" "}
           <CiSearch className="lg:text-3xl text-2xl text-cambridge_blue-400" />
         </>

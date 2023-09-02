@@ -31,7 +31,6 @@ const cartSlice = createSlice({
       } else {
         existingProduct.quantity += product.quantity || 1;
       }
-      console.log(product);
       state.totalQuantity += product.quantity || 1;
       state.totalPrice += product.price;
     },
@@ -47,8 +46,13 @@ const cartSlice = createSlice({
       state.totalQuantity--;
       state.totalPrice -= state.totalPrice > 0 ? existingProduct!.price : 0;
     },
+    clearCart(state) {
+      state.products = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addProduct, removeProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

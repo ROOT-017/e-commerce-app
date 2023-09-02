@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SendRequest } from "../components/Request/clientApi";
 import ProductCard from "../components/ProductCard";
-import { Skeleton } from "primereact/skeleton";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
 
 const CategoriesDetails = (props: any) => {
@@ -31,7 +30,7 @@ const CategoriesDetails = (props: any) => {
   }, [fetchProduct]);
 
   return (
-    <div className=" ">
+    <div className=" pb-16">
       <p className="w-fit lg:text-xl lg:py-6 pb-4 font-poppins text-lg text-gray-500 capitalize">
         {category?.split("-").join(" ") || "category"}
       </p>
