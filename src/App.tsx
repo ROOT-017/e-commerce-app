@@ -70,17 +70,17 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const stripeOptions = {
-    clientSecret: process.env.REACT_APP_STRIPE_CLIENT_ID,
-    fonts: [
-      {
-        cssSrc: "https://fonts.googleapis.com/css?family=Roboto",
-      },
-    ],
-  };
+  // const stripeOptions = {
+  //   clientSecret: process.env.REACT_APP_STRIPE_CLIENT_ID,
+  //   fonts: [
+  //     {
+  //       cssSrc: "https://fonts.googleapis.com/css?family=Roboto",
+  //     },
+  //   ],
+  // };
 
   return (
-    <Elements stripe={stripePromise} options={stripeOptions}>
+    <>
       {<Toast ref={toast} />} <CartModal />
       <Modal />
       <Navbar />
@@ -111,7 +111,7 @@ const App = () => {
         </Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
-    </Elements>
+    </>
   );
 };
 
