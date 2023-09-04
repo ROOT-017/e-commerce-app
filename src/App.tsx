@@ -28,12 +28,12 @@ import AuthLayout from "./pages/AuthLayout";
 import Signup from "./pages/Signup";
 import { auth } from "./auth/firebase";
 import { signin } from "./store/authSlice";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import SuccessPage from "./pages/Success";
 import SuccessCheck from "./pages/ProtectPurchased";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY!);
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY!);
 
 const App = () => {
   const dispatch = useAppDispatch();
