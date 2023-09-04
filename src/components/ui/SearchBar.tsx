@@ -13,10 +13,12 @@ const SearchBar = (props: SearchBarPropsTypes) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const searchbar = document.getElementById("search-bar");
-    if (searchbar) {
-      searchbar.focus();
-    }
+    setTimeout(() => {
+      const searchbar = document.getElementById("search-bar");
+      if (searchbar) {
+        searchbar.focus();
+      }
+    }, 1100);
   }, [isModal]);
 
   const openModal = () => {

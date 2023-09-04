@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../auth/firebase";
+import { SignUpWithEmailAndPassword, auth } from "../auth/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { login } from "../store/authSlice";
+import { signin } from "../store/authSlice";
 import { useAppDispatch } from "../store/hooks";
 
 const Signup = () => {
@@ -13,7 +13,7 @@ const Signup = () => {
   const passwordConfirmation = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const nameValue = name.current?.value;
     const emailValue = email.current?.value;
@@ -34,34 +34,26 @@ const Signup = () => {
       return;
     }
     setError("");
+    const res: any = await SignUpWithEmailAndPassword(
+      emailValue,
+      passwordValue
+    );
+    if (res?.error) {
+      setError(res.msg);
+      return;
+    }
+    email.current!.value = "";
+    password.current!.value = "";
+    passwordConfirmation.current!.value = "";
+    name.current!.value = "";
 
-    // const auth = getAuth();
-    createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user as any;
-        dispatch(
-          login({
-            name: nameValue,
-            email: emailValue,
-            uid: user.uid,
-            token: user.stsTokenManager.accessToken,
-          })
-        );
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({
-            name: nameValue,
-            email: emailValue,
-            uid: user.uid,
-            token: user.stsTokenManager.accessToken,
-          })
-        );
+    dispatch(
+      signin({
+        email: emailValue,
+        uid: res.uid,
+        token: res.stsTokenManager.accessToken,
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    );
   };
 
   return (
@@ -77,7 +69,7 @@ const Signup = () => {
               type="text"
               name="name"
               id="name"
-              value={`test name`}
+              value={`test test`}
               ref={name}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
             />
@@ -88,7 +80,6 @@ const Signup = () => {
               type="email"
               name="email"
               id="email"
-              value={`nkwetachaterence@gmail.com`}
               ref={email}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
             />

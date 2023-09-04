@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import Navbar from "../navigation/Navbar";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 import Home from "../../pages/Home";
 
 import { RootState } from "../../store/store";
@@ -34,9 +34,7 @@ const RootLayout = () => {
   return (
     <div className="lg:px-12">
       <CartModal />
-
       <Modal />
-      <Navbar />
       <Outlet />
       <Footer />
     </div>

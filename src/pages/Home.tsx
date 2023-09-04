@@ -7,6 +7,7 @@ import { Skeleton } from "primereact/skeleton";
 import { SendRequest } from "../components/Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { auth } from "../auth/firebase";
+import { signin } from "../store/authSlice";
 
 import { RootState } from "../store/store";
 
@@ -19,7 +20,6 @@ import {
 } from "../store/productSlice";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
 import ProductCategory from "../components/ProductCategory";
-import exp from "constants";
 
 export interface ProductsTypes {
   category: string;
@@ -62,6 +62,7 @@ const Home = () => {
   const { products, categories } = useAppSelector(
     (state: RootState) => state.products
   );
+  const { isLoggedIn } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
 
   const [searchHistory, setSearchHistory] = useState(initialProducts);
@@ -176,6 +177,22 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        user.getIdToken().then((token) => {
+          dispatch(
+            signin({
+              email: user.email!,
+              uid: user.uid,
+              token: token,
+            })
+          );
+        });
+      }
+    });
+  });
+
+  useEffect(() => {
     fetchProducts();
     fetchCategories();
     fetchHistory();
@@ -198,9 +215,8 @@ const Home = () => {
           {categories.slice(0, 8).map((category) => (
             <Category category={category} key={category} />
           ))}
-          <Category category="more" more={true} />
+          {categories.length > 0 && <Category category="more" more={true} />}
         </div>
-        {/* {categories.length > 0 && <Category category="more" more={true} />} */}
         {categories.length === 0 && (
           <>
             <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>

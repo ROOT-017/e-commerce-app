@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CartState {
-  products: { id: number; quantity: number; title: string; price: number }[];
+  products: {
+    id: number;
+    quantity: number;
+    title: string;
+    price: number;
+    image: string;
+  }[];
   totalQuantity: number;
   totalPrice: number;
 }
@@ -27,6 +33,7 @@ const cartSlice = createSlice({
           quantity: product.quantity || 1,
           price: product.price,
           title: product.title,
+          image: product.image,
         });
       } else {
         existingProduct.quantity += product.quantity || 1;

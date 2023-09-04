@@ -1,17 +1,21 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import React, { useRef, useState } from "react";
-import { Link, Navigate, redirect } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
 import { useAppDispatch } from "../store/hooks";
-import { login } from "../store/authSlice";
+import { signin } from "../store/authSlice";
+import { SignInWithEmailAndPassword } from "../auth/firebase";
 
 const Signin = () => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const origin = location.state?.from || "/";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const emailValue = email.current?.value;
     const passwordValue = password.current?.value;
@@ -20,26 +24,27 @@ const Signin = () => {
       return;
     }
     setError("");
-    signInWithEmailAndPassword(auth, emailValue, passwordValue)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        dispatch(login({ email: user.email, uid: user.uid }));
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({ email: user.email, uid: user.uid })
-        );
-        email.current!.value = "";
-        password.current!.value = "";
-        // Navigate({ to: "/" });
-        // redirect("/");
 
-        return <Navigate to={"/"} replace />;
+    const res: any = await SignInWithEmailAndPassword(
+      emailValue,
+      passwordValue
+    );
+
+    if (res?.error) {
+      setError(res.msg);
+      return;
+    }
+
+    email.current!.value = "";
+    password.current!.value = "";
+    dispatch(
+      signin({
+        email: res.email,
+        uid: res.uid,
+        token: res.stsTokenManager.accessToken,
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    );
+    navigate(origin, { replace: true });
   };
   return (
     <div className=" font-poppins text-gray-500 p-2">
@@ -55,7 +60,7 @@ const Signin = () => {
               ref={email}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
             />
-          </div>{" "}
+          </div>
           <div className="flex flex-col pt-2">
             <label htmlFor="password">Password</label>
             <input

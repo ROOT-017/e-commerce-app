@@ -49,7 +49,7 @@ const CartModalContnt = () => {
             <span className="px-2">
               <FaOpencart color="#d7502b" size={`1.5em`} />
             </span>{" "}
-            You have {totalQuantity} products in your card
+            You have {totalQuantity} products in your cart
           </p>
           <div className="w-full  lg:min-h-[24em] p-4 flex  flex-col ">
             <div className="min-h-[22em] lg:max-h-[48em] max-h-[25em] overflow-auto w-full rounded-lg  bg-[#e6edfa]">

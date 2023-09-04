@@ -14,6 +14,7 @@ export interface CartItemType {
   title: string;
   price: number;
   quantity: number;
+  image?: string;
 }
 
 const ProductCard = ({ product }: PropsTypes) => {
@@ -72,6 +73,7 @@ const ProductCard = ({ product }: PropsTypes) => {
               title: product.title,
               price: product.price,
               quantity: 1,
+              image: product.thumbnail,
             })}
           />
         </div>
