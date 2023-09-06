@@ -4,10 +4,15 @@ import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
+import { popResultsWithImages } from "../util/popResultsWithImages";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setCategories } from "../store/productSlice";
 
 const ProductCategories = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [first, setFirst] = useState(0);
+  const dispacth = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.products);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
@@ -27,9 +32,10 @@ const ProductCategories = () => {
         console.log(res.error);
         return;
       }
-      setCategories(res);
+      const results = popResultsWithImages(res);
+      dispacth(setCategories(results));
     }
-  }, []);
+  }, [dispacth]);
 
   useEffect(() => {
     fetchProduct();
@@ -37,12 +43,12 @@ const ProductCategories = () => {
 
   return (
     <div className=" lg:px-0 px-2 pt-4 lg:pt-8">
-      <div className="flex w-full flex-wrap gap-2 lg:gap-4">
+      <div className="flex w-full justify-evenly flex-wrap gap-2 lg:gap-4">
         {categories.length > 0 && (
           <>
-            {categories.slice(first, first + 10).map((category) => (
-              <Link key={category} to={`categories/${category}`}>
-                <Card key={category} category={category} />
+            {categories.slice(first, first + 10).map((elt) => (
+              <Link key={elt.label} to={`categories/${elt.label}`}>
+                <Card key={elt.label} category={elt.label} image={elt.image} />
               </Link>
             ))}
           </>

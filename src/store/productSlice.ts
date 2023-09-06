@@ -9,7 +9,10 @@ interface ProductStateType {
   product: any;
   loading: boolean;
   error: string | null;
-  categories: string[];
+  categories: {
+    image: string;
+    label: string;
+  }[];
 }
 
 const initialState: ProductStateType = {
@@ -59,8 +62,16 @@ const productSlice = createSlice({
     getCategories(state: ProductStateType) {
       state.loading = true;
     },
-    setCategories(state: ProductStateType, action: PayloadAction<string[]>) {
-      state.categories = action.payload;
+    setCategories(
+      state: ProductStateType,
+      action: PayloadAction<
+        {
+          image: string;
+          label: string;
+        }[]
+      >
+    ) {
+      state.categories = [...action.payload];
       state.loading = false;
     },
     setCategoriesFailure(state: ProductStateType, action: PayloadAction<any>) {

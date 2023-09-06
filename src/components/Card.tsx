@@ -1,16 +1,17 @@
 import React from "react";
-import img from "../components/assets/images__1_-removebg-preview.png";
+// import img from "../components/assets/images__1_-removebg-preview.png";
 import ReactStars from "react-rating-star-with-type";
 interface CardPropsTypes {
   category: string;
+  image?: string;
 }
 
-const Card = ({ category }: CardPropsTypes) => {
+const Card = ({ category, image }: CardPropsTypes) => {
   return (
     <div className="rounded-xl bg-background text-gray-500 hover:shadow-md transition-all ease-in-out duration-300 hover:shadow-burnt_sienna">
-      <div className="w-[10em] lg:w-[14em] h-fit">
-        <div className="p-4">
-          <img src={img} alt="category" />
+      <div className="w-[10em] lg:w-[14em] ">
+        <div className="p-4  w-full flex justify-center">
+          <img src={image} alt="category" className="lg:h-[12em] h-[6em] rounded-lg"  />
         </div>
         <p className="text-center text-lg font-poppins capitalize">
           {category.split("-").join(" ")}

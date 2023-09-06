@@ -1,13 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 import Home from "./pages/Home";
-import {
-  Navigate,
-  Route,
-  RouterProvider,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 // import Router from "./routes/Router";
 import ProductCategories from "./pages/ProductCategories";
@@ -40,6 +34,13 @@ const App = () => {
   const { isToast } = useAppSelector((state) => state.modal);
   const location = useLocation();
   const toast = useRef<any>(null);
+
+  //Change title of page based on route
+  useEffect(() => {
+    const title = location.pathname.split("/")[1].toUpperCase();
+
+    document.title = title ? `ShopCart | ` + title : `ShopCart | HOME `;
+  }, [location]);
 
   useEffect(() => {
     if (!isToast) return;

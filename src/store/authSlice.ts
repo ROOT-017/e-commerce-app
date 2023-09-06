@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 interface AuthState {
   isLoggedIn: boolean;
   token: string | null;
-  data: {};
+  // data: {};
   uid: string | null;
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
   token: null,
-  data: {},
+  // data: {},
   uid: null,
 };
 
@@ -21,13 +21,14 @@ const authSlice = createSlice({
     signin(state, action) {
       state.isLoggedIn = true;
       state.token = action.payload.token;
-      state.data = action.payload.data;
+      // state.data = action.payload.data;
       state.uid = action.payload.uid;
     },
     signout(state) {
       state.isLoggedIn = false;
       state.token = null;
-      state.data = {};
+      // state.data = {};
+      state.uid = null;
     },
   },
 });

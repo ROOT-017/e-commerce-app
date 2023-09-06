@@ -8,7 +8,7 @@ import { SendRequest } from "../components/Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { auth } from "../auth/firebase";
 import { signin } from "../store/authSlice";
-
+import { popResultsWithImages } from "../util/popResultsWithImages";
 import { RootState } from "../store/store";
 
 import {
@@ -62,7 +62,7 @@ const Home = () => {
   const { products, categories } = useAppSelector(
     (state: RootState) => state.products
   );
-  const { isLoggedIn } = useAppSelector((state: RootState) => state.auth);
+  // const { isLoggedIn } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
 
   const [searchHistory, setSearchHistory] = useState(initialProducts);
@@ -110,13 +110,15 @@ const Home = () => {
     });
     if (res) {
       if (res.error) {
-        console.log(res.error);
+        // console.log(res.error);
         dispatch(setProductsFailure(res.error));
         return;
       }
     }
     if (res) {
-      dispatch(setCategories(res));
+      //populate results with thier coresponing images
+      const results = popResultsWithImages(res);
+      dispatch(setCategories(results));
     }
   }, [dispatch]);
 
@@ -202,18 +204,21 @@ const Home = () => {
     <div>
       <Hero />
       <div className="py-4  lg:py-12 px-2 flex gap-2 lg:gap-4 flex-wrap">
-        {/* {categories.slice(0, 4).map((category) => (
-          <Category category={category} key={category} />
-        ))} */}
         <div className="flex  w-full lg:hidden gap-2 justify-evenly">
-          {categories.slice(0, 4).map((category) => (
-            <Category category={category} key={category} />
+          {categories.slice(0, 4).map((elt) => (
+            <Category category={elt.label} image={elt.image} key={elt.label} />
           ))}
-          <Category category="more" more={true} />
+          <Category
+            image={
+              "https://img.freepik.com/psd-gratuit/maquette-smartphone-plein-ecran_53876-65968.jpg?w=740&t=st=1694031390~exp=1694031990~hmac=88989e6f8c1be9f91d3f5e8d9ef38adc75c9bb478f4e7dd173808848a6cef194"
+            }
+            category="more"
+            more={true}
+          />
         </div>
         <div className="hidden  w-full lg:flex  gap-6 justify-evenly">
-          {categories.slice(0, 8).map((category) => (
-            <Category category={category} key={category} />
+          {categories.slice(0, 8).map((elt) => (
+            <Category category={elt.label} image={elt.image} key={elt.label} />
           ))}
           {categories.length > 0 && <Category category="more" more={true} />}
         </div>

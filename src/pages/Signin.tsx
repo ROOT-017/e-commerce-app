@@ -1,7 +1,6 @@
 // import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import React, { useRef, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { auth } from "../auth/firebase";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/hooks";
 import { signin } from "../store/authSlice";
 import { SignInWithEmailAndPassword } from "../auth/firebase";

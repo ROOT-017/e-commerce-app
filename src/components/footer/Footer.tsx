@@ -12,11 +12,8 @@ const Footer = () => {
       <div className="bg-hero-pattern bg-center mt-4 text-white flex lg:block flex-col   ">
         <div className="lg:h-[15em] h-[10em] bg-[#0000005c] flex justify-center items-center font-poppins">
           <p className="lg:text-[3em] flex gap-4 items-center text-lg lg:text-2xl">
-          <ImQuotesLeft />
-            <span className="">
-              {" "}
-              Let's Shop Beyond Boundries
-            </span>{" "}
+            <ImQuotesLeft />
+            <span className=""> Let's Shop Beyond Boundries</span>{" "}
             <ImQuotesRight />
           </p>
         </div>
@@ -116,7 +113,9 @@ const Footer = () => {
         <div className="h-[4em] bg-[#000000de] gap-4 text-sm flex justify-center items-center p-4">
           &copy;1997-{new Date().getFullYear()}
           <span className="font-poppins ">Made with &#9829; from Cameroon</span>
-          <span className="text-sm text-gray-400">creator @terence</span>
+          <span className="text-sm text-gray-400">
+            <a href="https://www.twitter.com/RootMultivate">creator @terence</a>
+          </span>
         </div>
       </div>
     </IconContext.Provider>
