@@ -69,7 +69,6 @@ const Signup = () => {
               type="text"
               name="name"
               id="name"
-              value={`test test`}
               ref={name}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
             />
@@ -90,7 +89,6 @@ const Signup = () => {
               type="password"
               name="password"
               id="password"
-              value={`123456789`}
               min={6}
               ref={password}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
@@ -103,7 +101,6 @@ const Signup = () => {
               name="passwordConfirmation"
               id="passwordConfirmation"
               ref={passwordConfirmation}
-              value={`123456789`}
               min={6}
               className="p-2 text-xl border-2 focus:outline-none border-cambridge_blue-600 rounded-lg"
             />

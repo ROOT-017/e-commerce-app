@@ -41,15 +41,9 @@ const images = {
 };
 
 export const popResultsWithImages = (categories) => {
-  //populate the cat with the images
-  const catImage = [];
-
-  categories.forEach((c) => {
-    catImage.push({
-      label: c,
-      image: images[c],
-    });
-  });
-
+  const catImage = categories.map((c) => ({
+    label: c,
+    image: images[c],
+  }));
   return catImage;
 };
