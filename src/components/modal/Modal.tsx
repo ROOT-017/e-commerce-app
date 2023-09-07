@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleModal } from "../../store/modalSlice";
 import Spinder from "../ui/Spinder";
-import { SendRequest } from "../Request/clientApi";
+import { SendRequest } from "../../Request/clientApi";
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Dialog } from "primereact/dialog";

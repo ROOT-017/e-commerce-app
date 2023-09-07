@@ -29,7 +29,12 @@ export const SendRequest = async (arg: requestProps) => {
   }
 };
 
-// export const SendRequest = async (arg: requestProps) => {
-//   const res = await fetch("https://dummyjson.com/products");
-//   console.log(res);
-// };
+export const handleCheckout = async (data: { items: any[]; email: string }) => {
+  const res = await axios({
+    url: "https://e-commerce-app-ez57.onrender.com/create-checkout-session",
+    method: "POST",
+    data,
+  });
+
+  return res.data.url
+};

@@ -6,6 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 
 //Inport User type from firebase
@@ -39,7 +40,6 @@ export const SignUpWithEmailAndPassword = async (
     };
   }
 };
-
 
 export const SignInWithEmailAndPassword = async (
   email: string,

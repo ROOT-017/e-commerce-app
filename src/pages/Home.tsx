@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import Products from "./Products";
 import Category from "../components/filters/Categories";
 import { Skeleton } from "primereact/skeleton";
-import { SendRequest } from "../components/Request/clientApi";
+import { SendRequest } from "../Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { auth } from "../auth/firebase";
 import { signin } from "../store/authSlice";

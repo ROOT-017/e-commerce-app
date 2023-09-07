@@ -20,7 +20,7 @@ import ProductDetailSection from "../components/ProductDetailSection";
 import AvailableColors from "../components/AvailableColors";
 import { BsTruck } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
-import { SendRequest } from "../components/Request/clientApi";
+import { SendRequest, handleCheckout } from "../Request/clientApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { Skeleton } from "primereact/skeleton";
 import type { CartItemType } from "../components/ProductCard";
@@ -34,6 +34,7 @@ import { addProduct } from "../store/cartSlice";
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((state) => state.products);
+  const { email } = useAppSelector((state) => state.auth);
   const { isLoggedIn } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const [thumbnail, setThumbnail] = useState("");
@@ -110,36 +111,22 @@ const ProductDetail = () => {
         state: { from: origin },
       });
     }
+    let pro = {
+      id: id,
+      title: product.title,
+      unit_price: product.price,
+      price: product.price * isValue,
+      description: product.description,
+      quantity: isValue,
+      image: product.thumbnail,
+      email: email,
+    };
 
-    navigate("/purchase/success", {
-      replace: true,
-      state: {
-        from: origin,
-        purchased: true,
-      },
+    const res: string = await handleCheckout({
+      items: [pro],
+      email: email,
     });
-
-    // if (!stripe || !elements) {
-    //   // Stripe.js hasn't yet loaded.
-    //   // Make sure to disable form submission until Stripe.js has loaded.
-    //   return;
-    // }
-    // const result = await stripe.confirmPayment({
-    //   //`Elements` instance that was used to create the Payment Element
-    //   elements,
-    //   confirmParams: {
-    //     return_url: "localhost:3000/purchase/success",
-    //   },
-      
-    // });
-    // if (result.error) {
-    //   // Show error to your customer (for example, payment details incomplete)
-    //   console.log(result.error.message);
-    // } else {
-    //   // Your customer will be redirected to your `return_url`. For some payment
-    //   // methods like iDEAL, your customer will be redirected to an intermediate
-    //   // site first to authorize the payment, then redirected to the `return_url`.
-    // }
+    window.location.href = res;
   };
 
   return (

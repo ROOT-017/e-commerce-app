@@ -5,12 +5,14 @@ interface AuthState {
   token: string | null;
   // data: {};
   uid: string | null;
+  email: string;
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
   token: null,
   // data: {},
+  email: "",
   uid: null,
 };
 
@@ -23,12 +25,13 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       // state.data = action.payload.data;
       state.uid = action.payload.uid;
+      state.email = action.payload.email;
     },
     signout(state) {
       state.isLoggedIn = false;
       state.token = null;
-      // state.data = {};
       state.uid = null;
+      state.email = "";
     },
   },
 });

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SendRequest } from "../components/Request/clientApi";
+import { SendRequest } from "../Request/clientApi";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
 
