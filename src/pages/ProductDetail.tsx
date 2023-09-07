@@ -114,8 +114,7 @@ const ProductDetail = () => {
     let pro = {
       id: id,
       title: product.title,
-      unit_price: product.price,
-      price: product.price * isValue,
+      price: product.price,
       description: product.description,
       quantity: isValue,
       image: product.thumbnail,

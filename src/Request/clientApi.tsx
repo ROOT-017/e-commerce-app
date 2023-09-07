@@ -31,7 +31,7 @@ export const SendRequest = async (arg: requestProps) => {
 
 export const handleCheckout = async (data: { items: any[]; email: string }) => {
   const res = await axios({
-    url: "https://e-commerce-app-ez57.onrender.com/create-checkout-session",
+    url: "http://localhost:8000/create-checkout-session",
     method: "POST",
     data,
     headers: {

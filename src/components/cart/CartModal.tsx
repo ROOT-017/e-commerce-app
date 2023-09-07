@@ -12,11 +12,13 @@ import { addProduct, removeProduct, clearCart } from "../../store/cartSlice";
 import { CartItemType } from "../ProductCard";
 import { FaOpencart } from "react-icons/fa";
 import ButtonEmpty from "../button/ButtonEmpty";
+import { handleCheckout } from "../../Request/clientApi";
 
 const CartModalContnt = () => {
   const { products, totalPrice, totalQuantity } = useAppSelector(
     (state) => state.cart
   );
+  const { email } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -32,6 +34,15 @@ const CartModalContnt = () => {
 
   const clearCartHandler = () => {
     dispatch(clearCart());
+  };
+
+  const handleSubmit = async () => {
+    const data = {
+      items: products,
+      email,
+    };
+    const url = await handleCheckout(data);
+    window.location.href = url;
   };
   return (
     <IconContext.Provider
@@ -102,6 +113,7 @@ const CartModalContnt = () => {
                 <Buttn
                   text="Checkout"
                   styles="bg-cambridge_blue-400 text-white w-full"
+                  handleClick={handleSubmit}
                 />
               </div>
             </div>
