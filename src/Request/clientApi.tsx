@@ -34,7 +34,10 @@ export const handleCheckout = async (data: { items: any[]; email: string }) => {
     url: "https://e-commerce-app-ez57.onrender.com/create-checkout-session",
     method: "POST",
     data,
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
-  return res.data.url
+  return res.data.url;
 };
