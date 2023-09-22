@@ -32,7 +32,7 @@ export const SendRequest = async (arg: requestProps) => {
 export const handleCheckout = async (data: { items: any[]; email: string }) => {
   const url =
     process.env.NODE_ENV === "production"
-      ? `${process.env.REACT_APP_BACKEND_URL} /create-checkout-session`
+      ? `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`
       : "http://localhost:8000/create-checkout-session";
 
   const res = await axios({
