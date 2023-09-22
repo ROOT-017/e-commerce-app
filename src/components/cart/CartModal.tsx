@@ -13,6 +13,7 @@ import { CartItemType } from "../ProductCard";
 import { FaOpencart } from "react-icons/fa";
 import ButtonEmpty from "../button/ButtonEmpty";
 import { handleCheckout } from "../../Request/clientApi";
+// import { useLocation } from "react-router-dom";
 
 const CartModalContnt = () => {
   const { products, totalPrice, totalQuantity } = useAppSelector(
@@ -41,6 +42,7 @@ const CartModalContnt = () => {
       items: products,
       email,
     };
+    dispatch(toggleCartModal(false));
     const url = await handleCheckout(data);
     window.location.href = url;
   };
@@ -105,10 +107,10 @@ const CartModalContnt = () => {
                 <Buttn
                   text="Checkout"
                   styles="bg-cambridge_blue-400 text-white w-full"
+                  handleClick={handleSubmit}
                 />
               </div>
               <div className="lg:hidden gap-1 ">
-                {" "}
                 <ButtonEmpty text="Clear Cart" handleClick={clearCartHandler} />
                 <Buttn
                   text="Checkout"

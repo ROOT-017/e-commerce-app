@@ -121,11 +121,11 @@ const ProductDetail = () => {
       email: email,
     };
 
-    const res: string = await handleCheckout({
+    const url = await handleCheckout({
       items: [pro],
       email: email,
     });
-    window.location.href = res;
+    window.location.href = url;
   };
 
   return (

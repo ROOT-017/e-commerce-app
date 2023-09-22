@@ -84,3 +84,9 @@ export const SignInWithGoogle = async () => {
     };
   }
 };
+
+export const SignInWithGoogleRedirect = async () => {
+  const provider = new GoogleAuthProvider();
+
+  const res = await signInWithRedirect(auth, provider);
+};

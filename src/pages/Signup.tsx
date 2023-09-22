@@ -54,6 +54,9 @@ const Signup = () => {
         token: res.stsTokenManager.accessToken,
       })
     );
+    //Navigate to home
+    
+    
   };
 
   return (
