@@ -39,9 +39,9 @@ export const handleCheckout = async (data: { items: any[]; email: string }) => {
     url,
     method: "POST",
     data,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
   });
 
   return res.data.url;
