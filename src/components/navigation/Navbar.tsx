@@ -81,7 +81,7 @@ const Navbar = () => {
           <li>What's New</li>
           <li>Delivery</li>
         </ul>
-        <div className="flex justify-between gap-4">
+        <div className="flex justify-between gap-4 lg:pr-8 ">
           <SearchBar seachTerm={handleSearch} />
           <ul className="flex  items-center gap-4">
             <li className="hidden  lg:flex lg:gap-4 bg-cambridge_blue-800 lg:bg-none  hover:bg-cambridge_blue-800 rounded-full p-2 transition-colors duration-300 ease-in-out">
@@ -113,7 +113,7 @@ const Navbar = () => {
                 {quantity}
               </span>
               <LiaOpencart className="font-bold" />
-              <span>Cart</span>
+              <span className="hidden">Cart</span>
             </li>
             <li className="lg:hidden" onClick={toggleSidebar}>
               <BsGridFill />

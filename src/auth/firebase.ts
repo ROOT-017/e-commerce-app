@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
+  getRedirectResult,
 } from "firebase/auth";
 
 //Inport User type from firebase
@@ -22,6 +23,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+
 const auth = getAuth(firebaseApp);
 
 export { auth };
@@ -73,20 +75,16 @@ export const SignOut = async () => {
 
 export const SignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
+  await signInWithRedirect(auth, provider);
+  
   try {
-    const res = await signInWithPopup(auth, provider);
-
-    return res.user;
+    const res = await getRedirectResult(auth);
+    console.log(res);
+    return res?.user;
   } catch (error: any) {
     return {
       error: error,
       msg: error?.message ? error.message : "Something went wrong",
     };
   }
-};
-
-export const SignInWithGoogleRedirect = async () => {
-  const provider = new GoogleAuthProvider();
-
-  const res = await signInWithRedirect(auth, provider);
 };

@@ -1,14 +1,17 @@
 // import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { toggleSpinderModel } from "../store/modalSlice";
 import { signin } from "../store/authSlice";
 import { SignInWithEmailAndPassword } from "../auth/firebase";
+// import { , useAppDispatch } from "../store/hooks";
 
 const Signin = () => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
+  // const isSpinder = useAppSelector((state) => state.modal.isSpinder);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,11 +26,13 @@ const Signin = () => {
       return;
     }
     setError("");
+    dispatch(toggleSpinderModel(true));
 
     const res: any = await SignInWithEmailAndPassword(
       emailValue,
       passwordValue
     );
+    dispatch(toggleSpinderModel(false));
 
     if (res?.error) {
       setError(res.msg);
@@ -45,6 +50,7 @@ const Signin = () => {
     );
     navigate(origin, { replace: true });
   };
+
   return (
     <div className=" font-poppins text-gray-500 p-2">
       <h1 className="text-xl text-center py-4 ">SIGN IN</h1>

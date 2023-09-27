@@ -11,7 +11,7 @@ import CategoriesDetails from "./pages/CategoriesDetails";
 
 import Navbar from "./components/navigation/Navbar";
 import CartModal from "./components/cart/CartModal";
-import Modal from "./components/modal/Modal";
+import Modal, { ConstomModal } from "./components/modal/Modal";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./components/layout/Rootlayout";
 import { Toast } from "primereact/toast";
@@ -27,11 +27,13 @@ import { signin } from "./store/authSlice";
 import SuccessPage from "./pages/Success";
 import SuccessCheck from "./pages/ProtectPurchased";
 
+import Spinder from "./components/ui/Spinder";
+
 // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY!);
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const { isToast } = useAppSelector((state) => state.modal);
+  const { isToast, isSpinder } = useAppSelector((state) => state.modal);
   const location = useLocation();
   const toast = useRef<any>(null);
 
@@ -83,6 +85,15 @@ const App = () => {
   return (
     <>
       {<Toast ref={toast} />} <CartModal />
+      {isSpinder && (
+        <>
+          <ConstomModal>
+            <div>
+              <Spinder />
+            </div>
+          </ConstomModal>
+        </>
+      )}
       <Modal />
       <Navbar />
       <Routes>

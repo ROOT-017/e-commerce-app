@@ -10,7 +10,9 @@ import { HiChevronDoubleRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 
-interface ModalPropsTypes {}
+interface ModalPropsTypes {
+  children?: React.ReactNode;
+}
 
 const BackDrop = () => {
   //   const { isModal } = useSelector((state: RootState) => state.modal);
@@ -24,6 +26,14 @@ const BackDrop = () => {
       className="fixed min-h-screen h-screen z-10 top-0 left-0 w-full  bg-[#81b29a67]"
       onClick={closeModal}
     ></div>
+  );
+};
+
+export const ConstomModal = (props: ModalPropsTypes) => {
+  return (
+    <div className="fixed min-h-screen h-screen flex justify-center items-center z-10 top-0 left-0 w-full  bg-[#81b29a67]">
+      {props.children}
+    </div>
   );
 };
 

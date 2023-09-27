@@ -7,6 +7,7 @@ import { IconContext } from "react-icons/lib";
 import { SignInWithGoogle } from "../auth/firebase";
 import { useAppDispatch } from "../store/hooks";
 import { signin } from "../store/authSlice";
+import { toggleSpinderModel } from "../store/modalSlice";
 
 const AuthLayout = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +17,11 @@ const AuthLayout = () => {
   const origin = location.state?.from ? location.state.from : "/";
 
   const handleSigninWithGoogle = async () => {
+    dispatch(toggleSpinderModel(true));
+
     const res: any = await SignInWithGoogle();
+    dispatch(toggleSpinderModel(false));
+
     if (res?.error) {
       // setError(res.msg);
       console.log(res);

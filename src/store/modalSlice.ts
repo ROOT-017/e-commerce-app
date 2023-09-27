@@ -5,12 +5,14 @@ interface ModalStateType {
   isModal: boolean;
   isCartModal: boolean;
   isToast: boolean;
+  isSpinder: boolean;
 }
 
 const initialState: ModalStateType = {
   isModal: false,
   isCartModal: false,
   isToast: false,
+  isSpinder: false,
 };
 
 const modalSlice = createSlice({
@@ -26,8 +28,12 @@ const modalSlice = createSlice({
     toggleToast(state: ModalStateType, action: PayloadAction<boolean>) {
       state.isToast = action.payload;
     },
+    toggleSpinderModel(state: ModalStateType, action: PayloadAction<boolean>) {
+      state.isSpinder = action.payload;
+    },
   },
 });
 
-export const { toggleModal, toggleCartModal, toggleToast } = modalSlice.actions;
+export const { toggleModal, toggleCartModal, toggleToast, toggleSpinderModel } =
+  modalSlice.actions;
 export default modalSlice.reducer;

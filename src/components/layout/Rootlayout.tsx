@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
-import Navbar from "../navigation/Navbar";
+import { Outlet } from "react-router-dom";
 import Modal from "../modal/Modal";
-import Home from "../../pages/Home";
 
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -11,7 +9,7 @@ import CartModal from "../cart/CartModal";
 import Footer from "../footer/Footer";
 
 const RootLayout = () => {
-  const { isModal, isCartModal } = useSelector(
+  const { isModal, isCartModal, isSpinder } = useSelector(
     (state: RootState) => state.modal
   );
   useEffect(() => {
@@ -24,13 +22,13 @@ const RootLayout = () => {
   }, [isModal]);
 
   useEffect(() => {
-    if (!isCartModal) {
+    if (!isCartModal || !isSpinder) {
       document.body.style.overflow = "unset";
     }
-    if (isCartModal) {
+    if (isCartModal || isSpinder) {
       document.body.style.overflow = "hidden";
     }
-  }, [isCartModal]);
+  }, [isCartModal, isSpinder]);
   return (
     <div className="lg:px-12">
       <CartModal />
