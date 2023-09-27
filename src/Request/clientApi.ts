@@ -30,19 +30,23 @@ export const SendRequest = async (arg: requestProps) => {
 };
 
 export const handleCheckout = async (data: { items: any[]; email: string }) => {
-  const url =
-    process.env.NODE_ENV === "production"
-      ? `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`
-      : "http://localhost:8000/create-checkout-session";
+  try {
+    const url =
+      process.env.NODE_ENV === "production"
+        ? `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`
+        : "http://localhost:8000/create-checkout-session";
 
-  const res = await axios({
-    url,
-    method: "POST",
-    data,
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-  });
+    const res = await axios({
+      url,
+      method: "POST",
+      data,
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    });
 
-  return res.data.url;
+    return { url: res.data.url, error: null };
+  } catch (err) {
+    return { url: null, error: err };
+  }
 };

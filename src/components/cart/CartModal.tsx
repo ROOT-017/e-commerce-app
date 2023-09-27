@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { CgClose } from "react-icons/cg";
-import { toggleCartModal } from "../../store/modalSlice";
+import {
+  toggleCartModal,
+  toggleSpinderModel,
+  toggleToast,
+} from "../../store/modalSlice";
 import { PiMinusFill } from "react-icons/pi";
 import { RiAddBoxFill } from "react-icons/ri";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -13,12 +17,15 @@ import { CartItemType } from "../ProductCard";
 import { FaOpencart } from "react-icons/fa";
 import ButtonEmpty from "../button/ButtonEmpty";
 import { handleCheckout } from "../../Request/clientApi";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const CartModalContnt = () => {
   const { products, totalPrice, totalQuantity } = useAppSelector(
     (state) => state.cart
   );
+  const location = useLocation();
+  const origin = location.state?.from || "/";
+
   const { email } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
@@ -29,6 +36,7 @@ const CartModalContnt = () => {
   const handleAddToCart = (item: CartItemType) => {
     dispatch(addProduct(item));
   };
+
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeProduct(id));
   };
@@ -38,12 +46,52 @@ const CartModalContnt = () => {
   };
 
   const handleSubmit = async () => {
+    dispatch(toggleCartModal(false));
+    if (!totalQuantity) {
+      dispatch(
+        toggleToast({
+          value: true,
+          options: {
+            severity: "error",
+            summary: "Fail",
+            detail: "No product in your cart",
+            life: 3000,
+          },
+        })
+      );
+      return;
+    }
+
     const data = {
       items: products,
       email,
     };
-    dispatch(toggleCartModal(false));
-    const url = await handleCheckout(data);
+    dispatch(toggleSpinderModel(true));
+    const res = await handleCheckout(data);
+    dispatch(toggleSpinderModel(false));
+
+    if (res.error) {
+      console.log(res.error);
+      dispatch(
+        toggleToast({
+          value: true,
+          options: {
+            severity: "error",
+            summary: "Fail",
+            detail: res.error,
+            life: 3000,
+          },
+        })
+      );
+      return;
+    }
+    let url;
+    if (!res.url) {
+      url = origin;
+    } else {
+      url = res.url;
+    }
+
     window.location.href = url;
   };
   return (

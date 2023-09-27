@@ -39,7 +39,7 @@ const modalSlice = createSlice({
         options?: {
           severity: string;
           summary: string;
-          detail: string;
+          detail: any;
           life: number | null;
         } | null;
       }>

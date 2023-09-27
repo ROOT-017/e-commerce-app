@@ -30,6 +30,7 @@ import {
   setProductFailure,
 } from "../store/productSlice";
 import { addProduct } from "../store/cartSlice";
+import { toggleSpinderModel, toggleToast } from "../store/modalSlice";
 
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
@@ -121,17 +122,40 @@ const ProductDetail = () => {
       email: email,
     };
 
-    const url = await handleCheckout({
+    dispatch(toggleSpinderModel(true));
+    const res = await handleCheckout({
       items: [pro],
       email: email,
     });
+    dispatch(toggleSpinderModel(false));
+
+    if (res.error) {
+      dispatch(
+        toggleToast({
+          value: true,
+          options: {
+            severity: "error",
+            summary: "Fail",
+            detail: res.error,
+            life: 3000,
+          },
+        })
+      );
+      return;
+    }
+
+    let url;
+    if (!res.url) {
+      url = origin;
+    } else {
+      url = res.url;
+    }
+
     window.location.href = url;
   };
 
   return (
     <div className="pb-4">
-      {/* <PaymentElement /> */}
-
       {product && (
         <Pagnation
           path={[product.category]}
