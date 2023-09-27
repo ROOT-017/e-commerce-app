@@ -11,15 +11,18 @@ interface SearchBarPropsTypes {
 const SearchBar = (props: SearchBarPropsTypes) => {
   const { isModal } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setTimeout(() => {
-      const searchbar = document.getElementById("search-bar");
-      if (searchbar) {
-        searchbar.focus();
-      }
-    }, 1100);
-  }, [isModal]);
+  const searchbar = document.getElementById("search-bar")?.focus();
+  // if (searchbar) {
+  //   searchbar.focus({ focusVisible: true });
+  //   console.log("Elt");
+  // }
+  // useEffect(() => {
+  //   const searchbar = document.getElementById("search-bar");
+  //   console.log(searchbar);
+  //   document.getElementById("search-bar")?.focus();
+  //   console.log("=================");
+  // setTimeout(() => {}, 200);
+  // }, []);
 
   const openModal = () => {
     dispatch(toggleModal(true));

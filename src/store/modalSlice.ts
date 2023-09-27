@@ -4,14 +4,20 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 interface ModalStateType {
   isModal: boolean;
   isCartModal: boolean;
-  isToast: boolean;
+  isToast: {
+    value: boolean;
+    options?: any;
+  };
   isSpinder: boolean;
 }
 
 const initialState: ModalStateType = {
   isModal: false,
   isCartModal: false,
-  isToast: false,
+  isToast: {
+    value: true,
+    options: null,
+  },
   isSpinder: false,
 };
 
@@ -25,8 +31,21 @@ const modalSlice = createSlice({
     toggleCartModal(state: ModalStateType, action: PayloadAction<boolean>) {
       state.isCartModal = action.payload;
     },
-    toggleToast(state: ModalStateType, action: PayloadAction<boolean>) {
-      state.isToast = action.payload;
+
+    toggleToast(
+      state: ModalStateType,
+      action: PayloadAction<{
+        value: boolean;
+        options?: {
+          severity: string;
+          summary: string;
+          detail: string;
+          life: number | null;
+        } | null;
+      }>
+    ) {
+      state.isToast.value = action.payload.value;
+      state.isToast.options = action.payload.options;
     },
     toggleSpinderModel(state: ModalStateType, action: PayloadAction<boolean>) {
       state.isSpinder = action.payload;

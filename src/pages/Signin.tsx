@@ -1,8 +1,8 @@
 // import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { toggleSpinderModel } from "../store/modalSlice";
+import { useAppDispatch } from "../store/hooks";
+import { toggleSpinderModel, toggleToast } from "../store/modalSlice";
 import { signin } from "../store/authSlice";
 import { SignInWithEmailAndPassword } from "../auth/firebase";
 // import { , useAppDispatch } from "../store/hooks";
@@ -35,7 +35,36 @@ const Signin = () => {
     dispatch(toggleSpinderModel(false));
 
     if (res?.error) {
-      setError(res.msg);
+      console.log(res?.error);
+      let err;
+      const errrType = res.msg.split("/")[1].split("-")[0];
+      if (errrType === "network") {
+        err = "Network Failure, Check your network";
+      } else {
+        err = "Wrong Password or Email";
+      }
+      dispatch(
+        toggleToast({
+          value: true,
+          options: {
+            severity: "error",
+            summary: "Fail",
+            detail: err || "Fail",
+            life: 3000,
+          },
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(
+          toggleToast({
+            value: false,
+            options: null,
+          })
+        );
+      }, 3000);
+
+      setError(err || "Fail");
       return;
     }
 

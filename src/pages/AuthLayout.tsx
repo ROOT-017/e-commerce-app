@@ -8,11 +8,15 @@ import { SignInWithGoogle } from "../auth/firebase";
 import { useAppDispatch } from "../store/hooks";
 import { signin } from "../store/authSlice";
 import { toggleSpinderModel } from "../store/modalSlice";
+import { useEffect } from "react";
+import { useAppSelector } from "../store/hooks";
+import { RootState } from "../store/store";
 
 const AuthLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isSpinder } = useAppSelector((state: RootState) => state.modal);
 
   const origin = location.state?.from ? location.state.from : "/";
 
@@ -37,6 +41,16 @@ const AuthLayout = () => {
     );
     navigate(origin, { replace: true, state: { from: "/auth/signin" } });
   };
+
+  useEffect(() => {
+    if (!isSpinder) {
+      document.body.style.overflow = "unset";
+    }
+    if (isSpinder) {
+      document.body.style.overflow = "hidden";
+    }
+  }, [isSpinder]);
+
   return (
     <IconContext.Provider value={{ size: "2em" }}>
       {" "}
@@ -75,6 +89,3 @@ const AuthLayout = () => {
 };
 
 export default AuthLayout;
-
-// how to configure authentiction with react router dom
-// https://reactrouter.com/web/example/auth-workflow

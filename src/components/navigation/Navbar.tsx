@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../ui/SearchBar";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { signout } from "../../store/authSlice";
-import { toggleCartModal } from "../../store/modalSlice";
+import { toggleCartModal, toggleToast } from "../../store/modalSlice";
 import logo from "../../components/assets/logo.png";
 import { Sidebar } from "primereact/sidebar";
 import { SignOut } from "../../auth/firebase";
@@ -61,6 +61,29 @@ const Navbar = () => {
       dispatch(signout());
       return;
     }
+  };
+
+  const handleToast = () => {
+    console.log("TOAST");
+    dispatch(
+      toggleToast({
+        value: true,
+        options: {
+          severity: "success",
+          summary: "Success",
+          detail: "Delivery clicked",
+          life: 3000,
+        },
+      })
+    );
+    setTimeout(() => {
+      dispatch(
+        toggleToast({
+          value: false,
+          options: null,
+        })
+      );
+    }, 3000);
   };
 
   return (

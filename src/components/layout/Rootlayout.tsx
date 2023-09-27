@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import Modal from "../modal/Modal";
 
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import CartModal from "../cart/CartModal";
+import { Toast } from "primereact/toast";
 
 import Footer from "../footer/Footer";
 
 const RootLayout = () => {
-  const { isModal, isCartModal, isSpinder } = useSelector(
+  // const toast = useRef(null);
+  const { isModal, isCartModal } = useSelector(
     (state: RootState) => state.modal
   );
+
   useEffect(() => {
     if (!isModal) {
       document.body.style.overflow = "unset";
@@ -22,15 +25,17 @@ const RootLayout = () => {
   }, [isModal]);
 
   useEffect(() => {
-    if (!isCartModal || !isSpinder) {
+    if (!isCartModal) {
       document.body.style.overflow = "unset";
     }
-    if (isCartModal || isSpinder) {
+    if (isCartModal) {
       document.body.style.overflow = "hidden";
     }
-  }, [isCartModal, isSpinder]);
+  }, [isCartModal]);
+
   return (
     <div className="lg:px-12">
+      {/* <Toast ref={} /> */}
       <CartModal />
       <Modal />
       <Outlet />

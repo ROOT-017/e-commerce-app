@@ -22,36 +22,26 @@ import AuthLayout from "./pages/AuthLayout";
 import Signup from "./pages/Signup";
 import { auth } from "./auth/firebase";
 import { signin } from "./store/authSlice";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
 import SuccessPage from "./pages/Success";
 import SuccessCheck from "./pages/ProtectPurchased";
 
 import Spinder from "./components/ui/Spinder";
 
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY!);
-
 const App = () => {
   const dispatch = useAppDispatch();
   const { isToast, isSpinder } = useAppSelector((state) => state.modal);
   const location = useLocation();
-  const toast = useRef<any>(null);
+  const toast = useRef<Toast>(null);
 
   //Change title of page based on route
   useEffect(() => {
     const title = location.pathname.split("/")[1].toUpperCase();
-
     document.title = title ? `ShopCart | ` + title : `ShopCart | HOME `;
   }, [location]);
 
   useEffect(() => {
-    if (!isToast) return;
-    toast.current.show({
-      severity: "success",
-      summary: "Success",
-      detail: "Item added to cart",
-      life: 3000,
-    });
+    if (!isToast.value) return;
+    toast.current?.show(isToast.options);
   }, [isToast]);
 
   useEffect(() => {
@@ -73,24 +63,17 @@ const App = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // const stripeOptions = {
-  //   clientSecret: process.env.REACT_APP_STRIPE_CLIENT_ID,
-  //   fonts: [
-  //     {
-  //       cssSrc: "https://fonts.googleapis.com/css?family=Roboto",
-  //     },
-  //   ],
-  // };
 
   return (
     <>
-      {<Toast ref={toast} />} <CartModal />
+      {isToast.value && <Toast ref={toast} />}
+      <CartModal />
       {isSpinder && (
         <>
           <ConstomModal>
-            <div>
+            <>
               <Spinder />
-            </div>
+            </>
           </ConstomModal>
         </>
       )}
