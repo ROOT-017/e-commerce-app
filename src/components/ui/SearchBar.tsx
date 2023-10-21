@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
@@ -11,7 +11,7 @@ interface SearchBarPropsTypes {
 const SearchBar = (props: SearchBarPropsTypes) => {
   const { isModal } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
-  const searchbar = document.getElementById("search-bar")?.focus();
+  // const searchbar = document.getElementById("search-bar")?.focus();
   // if (searchbar) {
   //   searchbar.focus({ focusVisible: true });
   //   console.log("Elt");

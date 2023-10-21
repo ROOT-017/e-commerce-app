@@ -17,12 +17,14 @@ import { CartItemType } from "../ProductCard";
 import { FaOpencart } from "react-icons/fa";
 import ButtonEmpty from "../button/ButtonEmpty";
 import { handleCheckout } from "../../Request/clientApi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CartModalContnt = () => {
   const { products, totalPrice, totalQuantity } = useAppSelector(
     (state) => state.cart
   );
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
   const location = useLocation();
   const origin = location.state?.from || "/";
 
@@ -66,6 +68,12 @@ const CartModalContnt = () => {
       items: products,
       email,
     };
+    if (!isLoggedIn) {
+      return navigate("/auth/signin", {
+        replace: true,
+        state: { from: origin },
+      });
+    }
     dispatch(toggleSpinderModel(true));
     const res = await handleCheckout(data);
     dispatch(toggleSpinderModel(false));

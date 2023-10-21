@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { SignUpWithEmailAndPassword, auth } from "../auth/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { SignUpWithEmailAndPassword } from "../auth/firebase";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signin } from "../store/authSlice";
 import { useAppDispatch } from "../store/hooks";
 

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Pagnation from "../components/pagination/Pagination";
 import {
-  Navigate,
   useLocation,
   useNavigate,
   useParams,

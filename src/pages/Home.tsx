@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Hero from "../components/Hero";
 // import FilterSection from "../components/filters/FilterSection";
-import Products from "./Products";
 import Category from "../components/filters/Categories";
 import { Skeleton } from "primereact/skeleton";
 import { SendRequest } from "../Request/clientApi";

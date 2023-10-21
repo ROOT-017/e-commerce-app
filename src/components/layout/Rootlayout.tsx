@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Modal from "../modal/Modal";
 
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import CartModal from "../cart/CartModal";
-import { Toast } from "primereact/toast";
-
 import Footer from "../footer/Footer";
 
 const RootLayout = () => {
