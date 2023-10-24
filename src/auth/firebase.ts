@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   GoogleAuthProvider,
-  // signInWithPopup,
+  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
 } from "firebase/auth";
@@ -75,16 +75,8 @@ export const SignOut = async () => {
 
 export const SignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  await signInWithRedirect(auth, provider);
-  
   try {
-    const res = await getRedirectResult(auth);
-    console.log(res);
-    return res?.user;
-  } catch (error: any) {
-    return {
-      error: error,
-      msg: error?.message ? error.message : "Something went wrong",
-    };
-  }
+    const res = await signInWithPopup(auth, provider);
+    return res.user;
+  } catch (error: any) {}
 };
