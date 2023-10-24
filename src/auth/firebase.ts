@@ -78,5 +78,10 @@ export const SignInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, provider);
     return res.user;
-  } catch (error: any) {}
+  } catch (error: any) {
+    return {
+      error: error,
+      msg: error.message,
+    };
+  }
 };

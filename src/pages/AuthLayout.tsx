@@ -7,7 +7,7 @@ import { IconContext } from "react-icons/lib";
 import { SignInWithGoogle } from "../auth/firebase";
 import { useAppDispatch } from "../store/hooks";
 import { signin } from "../store/authSlice";
-import { toggleSpinderModel } from "../store/modalSlice";
+import { toggleSpinderModel, toggleToast } from "../store/modalSlice";
 import { useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store/store";
@@ -25,10 +25,20 @@ const AuthLayout = () => {
 
     const res: any = await SignInWithGoogle();
     dispatch(toggleSpinderModel(false));
+    console.log(res);
 
     if (res?.error) {
-      // setError(res.msg);
-      console.log(res);
+      dispatch(
+        toggleToast({
+          value: true,
+          options: {
+            severity: "error",
+            summary: "Fail",
+            detail: res.msg,
+            life: 3000,
+          },
+        })
+      );
       return;
     }
 
@@ -69,7 +79,7 @@ const AuthLayout = () => {
                   <span className="w-full border-b bg-slate-300 h-1 ml-4"></span>
                 </div>
                 <ul className="flex justify-center gap-4 py-4">
-                  <li className="lg:hidden">
+                  <li className="hidden lg:block">
                     <FcGoogle
                       className="cursor-pointer"
                       onClick={handleSigninWithGoogle}

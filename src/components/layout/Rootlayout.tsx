@@ -3,13 +3,12 @@ import { Outlet } from "react-router-dom";
 import Modal from "../modal/Modal";
 
 import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
 import CartModal from "../cart/CartModal";
 import Footer from "../footer/Footer";
+import { useAppSelector } from "../../store/hooks";
 
 const RootLayout = () => {
-  // const toast = useRef(null);
-  const { isModal, isCartModal } = useSelector(
+  const { isModal, isCartModal } = useAppSelector(
     (state: RootState) => state.modal
   );
 
@@ -33,7 +32,6 @@ const RootLayout = () => {
 
   return (
     <div className="lg:px-12">
-      {/* <Toast ref={} /> */}
       <CartModal />
       <Modal />
       <Outlet />
