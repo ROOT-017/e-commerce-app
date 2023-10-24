@@ -69,7 +69,7 @@ const AuthLayout = () => {
                   <span className="w-full border-b bg-slate-300 h-1 ml-4"></span>
                 </div>
                 <ul className="flex justify-center gap-4 py-4">
-                  <li>
+                  <li className="lg:hidden">
                     <FcGoogle
                       className="cursor-pointer"
                       onClick={handleSigninWithGoogle}

@@ -1,10 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Pagnation from "../components/pagination/Pagination";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AmountSelector from "../components/AmoutSelector";
 import Buttn from "../components/ui/Buttn";
 import ButtonEmpty from "../components/button/ButtonEmpty";
@@ -128,6 +124,8 @@ const ProductDetail = () => {
     });
     dispatch(toggleSpinderModel(false));
 
+    console.log(res);
+
     if (res.error) {
       dispatch(
         toggleToast({
@@ -135,7 +133,7 @@ const ProductDetail = () => {
           options: {
             severity: "error",
             summary: "Fail",
-            detail: res.error,
+            detail: res.error.message || "Fail", //res.error.message,
             life: 3000,
           },
         })

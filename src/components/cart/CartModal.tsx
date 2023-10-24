@@ -86,7 +86,7 @@ const CartModalContnt = () => {
           options: {
             severity: "error",
             summary: "Fail",
-            detail: res.error,
+            detail: res.error.message || "Fail", //res.error.message,
             life: 3000,
           },
         })
