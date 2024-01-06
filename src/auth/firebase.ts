@@ -6,8 +6,6 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
 } from "firebase/auth";
 
 //Inport User type from firebase
