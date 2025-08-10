@@ -7,6 +7,7 @@ import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardS
 import { popResultsWithImages } from "../util/popResultsWithImages";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setCategories } from "../store/productSlice";
+import { Category } from "../type";
 
 const ProductCategories = () => {
   // const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ const ProductCategories = () => {
   };
 
   const fetchProduct = useCallback(async () => {
-    const res = await SendRequest({
+    const res = await SendRequest<Category[]>({
       method: "GET",
       url: `/products/categories/`,
       params: {
@@ -32,7 +33,7 @@ const ProductCategories = () => {
         console.log(res.error);
         return;
       }
-      const results = popResultsWithImages(res);
+      const results = popResultsWithImages(res.data ?? []);
       dispacth(setCategories(results));
     }
   }, [dispacth]);
@@ -47,8 +48,8 @@ const ProductCategories = () => {
         {categories.length > 0 && (
           <>
             {categories.slice(first, first + 10).map((elt) => (
-              <Link key={elt.label} to={`categories/${elt.label}`}>
-                <Card key={elt.label} category={elt.label} image={elt.image} />
+              <Link key={elt.slug} to={`categories/${elt.slug}`}>
+                <Card key={elt.slug} category={elt.name} image={elt.image} />
               </Link>
             ))}
           </>

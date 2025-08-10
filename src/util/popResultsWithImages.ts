@@ -1,3 +1,5 @@
+import { Category } from "../type";
+
 const images = {
   smartphones:
     "https://img.freepik.com/psd-gratuit/maquette-smartphone-plein-ecran_53876-65968.jpg?w=740&t=st=1694031390~exp=1694031990~hmac=88989e6f8c1be9f91d3f5e8d9ef38adc75c9bb478f4e7dd173808848a6cef194",
@@ -38,12 +40,13 @@ const images = {
     "https://img.freepik.com/photos-gratuite/gros-plan-selectif-large-ampoules-lumineuses-suspendues-plafond_181624-2571.jpg?w=740&t=st=1694039999~exp=1694040599~hmac=7dca0f2905b523fa9d308a73781a08e402b9b967bb7479c47ad6347ea439a5ab",
   automotive:
     "https://img.freepik.com/photos-premium/voiture-retro-isolee-fond-blanc-vehicule-legendaire-vintage_87543-21032.jpg?w=740",
+  beauty: "",
 };
 
-export const popResultsWithImages = (categories) => {
-  const catImage = categories.map((c) => ({
-    label: c,
-    image: images[c],
+export const popResultsWithImages = (categories: Category[]) => categories.map((c) => ({
+    image:
+      images[c.slug.toLowerCase() as keyof typeof images] ||
+      "https://via.placeholder.com/150",
+    ...c,
   }));
-  return catImage;
-};
+

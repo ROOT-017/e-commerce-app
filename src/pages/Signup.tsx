@@ -120,7 +120,7 @@ const Signup = () => {
           <div className="flex justify-end pt-4 ">
             <button
               type="submit"
-              className="bg-gradient-to-r from-cambridge_blue-500 to-burnt_sienna-500 py-2 px-4 rounded-lg text-white font-semibold"
+              className="bg-linear-to-r from-cambridge_blue-500 to-burnt_sienna-500 py-2 px-4 rounded-lg text-white font-semibold"
             >
               Sign Up
             </button>

@@ -1,11 +1,13 @@
+import { fontFamily } from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+export default {
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   theme: {
     extend: {
       colors: {
+        // Define colors WITH shades (like v3)
         eggshell: {
-          DEFAULT: "#f4f1de",
           100: "#463f17",
           200: "#8b7f2e",
           300: "#c5b651",
@@ -17,7 +19,6 @@ module.exports = {
           900: "#fdfcf8",
         },
         burnt_sienna: {
-          DEFAULT: "#e07a5f",
           100: "#36140a",
           200: "#6c2715",
           300: "#a23b1f",
@@ -29,7 +30,6 @@ module.exports = {
           900: "#f9e5df",
         },
         delft_blue: {
-          DEFAULT: "#3d405b",
           100: "#0c0d12",
           200: "#181a25",
           300: "#252737",
@@ -41,9 +41,8 @@ module.exports = {
           900: "#d4d6e2",
         },
         cambridge_blue: {
-          DEFAULT: "#81b29a",
           100: "#17261f",
-          200: "#2f4c3e",
+          200: "#2f4c3e",  // Now bg-cambridge_blue-200 will work
           300: "#46725d",
           400: "#5d987b",
           500: "#81b29a",
@@ -53,7 +52,6 @@ module.exports = {
           900: "#e6efeb",
         },
         sunset: {
-          DEFAULT: "#f2cc8f",
           100: "#442d08",
           200: "#895b10",
           300: "#cd8818",
@@ -64,16 +62,15 @@ module.exports = {
           800: "#faead1",
           900: "#fcf5e8",
         },
-        background: `#F5F6F6`,
+        background: "#F5F6F6",
       },
       fontFamily: {
-        poppins: ["Poppins"],
+        poppins: ["Poppins", ...fontFamily.sans],
       },
-      backgroundImage: (theme) => ({
-        "hero-pattern":
-          "url('/src/assets/clothing-hung-wooden-hangers-dividers-07060443-928f40e3d3224b9a932ef3bcc8b43c02.jpg')",
-        "footer-texture": "url('/src/assets/717bQf6RxsL.jpg')",
-      }),
+      backgroundImage: {
+        "hero-pattern": "url('/src/assets/clothing-hung-wooden-hangers.jpg')",
+        "footer-texture": "url('/src/assets/717bQf6RfsL.jpg')",
+      },
     },
   },
   plugins: [],

@@ -9,6 +9,7 @@ import { SendRequest } from "../../Request/clientApi";
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
+import { Product, ProductWithPagination } from "../../type";
 
 interface ModalPropsTypes {
   children?: React.ReactNode;
@@ -39,7 +40,7 @@ export const ConstomModal = (props: ModalPropsTypes) => {
 
 const ModalContent = (props: ModalPropsTypes) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const { isModal } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const ModalContent = (props: ModalPropsTypes) => {
 
   const fetchSearch = useCallback(async () => {
     if (searchTerm.trim() === "") return;
-    const res = await SendRequest({
+    const res = await SendRequest<ProductWithPagination>({
       method: "GET",
       url: "/products/search",
       params: {
@@ -58,7 +59,7 @@ const ModalContent = (props: ModalPropsTypes) => {
       },
     });
     let uniqueCategory = new Set();
-    res.products.map((item: any) => uniqueCategory.add(item.category));
+    res.data?.products.map((item: any) => uniqueCategory.add(item.category));
     if (uniqueCategory.size > 0) {
       localStorage.setItem(
         "categories",
@@ -66,7 +67,7 @@ const ModalContent = (props: ModalPropsTypes) => {
       );
     }
 
-    setSearchResult(res.products);
+    setSearchResult(res.data?.products ?? []);
   }, [searchTerm]);
 
   const handleSearch = (text: string) => {

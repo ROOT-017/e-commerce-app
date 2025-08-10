@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { CategoryWithImage, Product } from "../type";
 
 interface ProductStateType {
   products: {
     category: string;
-    products: any[];
+    products: Product[];
   };
-  product: any;
+  product: Product | null;
   loading: boolean;
   error: string | null;
-  categories: {
-    image: string;
-    label: string;
-  }[];
+  categories: CategoryWithImage[];
 }
 
 const initialState: ProductStateType = {
@@ -37,7 +35,7 @@ const productSlice = createSlice({
       state: ProductStateType,
       action: PayloadAction<{
         category: string;
-        products: any[];
+        products: Product[];
       }>
     ) {
       state.products.category = action.payload.category;
@@ -51,25 +49,21 @@ const productSlice = createSlice({
     getProduct(state: ProductStateType) {
       state.loading = true;
     },
-    setProduct(state: ProductStateType, action: PayloadAction<any>) {
+    setProduct(state: ProductStateType, action: PayloadAction<Product | null>) {
       state.product = action.payload;
       state.loading = false;
     },
     setProductFailure(state: ProductStateType, action: PayloadAction<any>) {
       state.error = action.payload;
       state.loading = false;
+      
     },
     getCategories(state: ProductStateType) {
       state.loading = true;
     },
     setCategories(
       state: ProductStateType,
-      action: PayloadAction<
-        {
-          image: string;
-          label: string;
-        }[]
-      >
+      action: PayloadAction<CategoryWithImage[]>
     ) {
       state.categories = [...action.payload];
       state.loading = false;

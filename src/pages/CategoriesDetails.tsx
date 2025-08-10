@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { SendRequest } from "../Request/clientApi";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeletonLoader from "../components/skeletonLoader/ProductCardSkeletonLoader";
+import { Product, ProductWithPagination } from "../type";
 
 const CategoriesDetails = (props: any) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const { category } = useParams();
 
   const fetchProduct = useCallback(async () => {
-    const res = await SendRequest({
+    const res = await SendRequest<ProductWithPagination>({
       method: "GET",
       url: `/products/category/${category}`,
       params: {
@@ -20,8 +21,8 @@ const CategoriesDetails = (props: any) => {
       if (res.error) {
         console.log(res.error);
         return;
-      }
-      setProducts(res.products);
+      }      
+      setProducts(res.data?.products??[]);
     }
   }, [category]);
 
@@ -36,7 +37,7 @@ const CategoriesDetails = (props: any) => {
       </p>
       <div className="flex w-full flex-wrap gap-4">
         {products.length > 0 &&
-          products.map((product: any) => (
+          products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         {products.length === 0 && (

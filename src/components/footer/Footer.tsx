@@ -30,12 +30,18 @@ const Footer = () => {
             <div className="pt-4">
               <ul className="flex gap-4 h-full justify-center lg:justify-normal">
                 <li>
-                  <a href={"https://www.twitter.com/RootMultivate"}>
+                  <a
+                    href={"https://www.twitter.com/RootMultivate"}
+                    target="_blank"
+                  >
                     <IoLogoTwitter />
                   </a>
                 </li>
                 <li>
-                  <a href={"https://www.instagram.com/jeezyway_terence"}>
+                  <a
+                    href={"https://www.instagram.com/jeezyway_terence"}
+                    target="_blank"
+                  >
                     <BsInstagram />
                   </a>
                 </li>
@@ -44,17 +50,21 @@ const Footer = () => {
                     href={
                       "https://www.linkedin.com/in/terence-ngwen-238aa5231/"
                     }
+                    target="_blank"
                   >
                     <FaLinkedin />
                   </a>
                 </li>
                 <li>
-                  <a href={"https://www.github.com/ROOT-017"}>
+                  <a href={"https://www.github.com/ROOT-017"} target="_blank">
                     <BsGithub />
                   </a>
                 </li>
                 <li>
-                  <a href="https://nkwetacha-terence-root-017.vercel.app/">
+                  <a
+                    href="https://nkwetachaterence.netlify.app/"
+                    target="_blank"
+                  >
                     <BsGlobe />
                   </a>
                 </li>

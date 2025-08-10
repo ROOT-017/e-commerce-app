@@ -26,6 +26,7 @@ import {
 } from "../store/productSlice";
 import { addProduct } from "../store/cartSlice";
 import { toggleSpinderModel, toggleToast } from "../store/modalSlice";
+import { Product } from "../type";
 
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
@@ -37,8 +38,6 @@ const ProductDetail = () => {
   const { id } = useParams();
   const location = useLocation();
   const [isValue, setValue] = useState(1);
-  // const stripe = useStripe();
-  // const elements = useElements();
 
   const [isColor, setColor] = useState({
     name: "",
@@ -48,6 +47,7 @@ const ProductDetail = () => {
   const handleIncrement = () => {
     setValue((preState) => (preState += 1));
   };
+
   const handleDecrement = () => {
     if (isValue === 1) return;
     setValue((preState) => (preState -= 1));
@@ -75,7 +75,7 @@ const ProductDetail = () => {
   const fetchProduct = useCallback(async () => {
     try {
       dispatch(getProduct());
-      const res = await SendRequest({
+      const res = await SendRequest<Product>({
         method: "GET",
         url: `/product/${id}`,
       });
@@ -86,7 +86,7 @@ const ProductDetail = () => {
           dispatch(setProductFailure(res));
           return;
         }
-        dispatch(setProduct(res));
+        dispatch(setProduct(res.data));
       }
     } catch (error) {
       dispatch(setProductFailure(error));
@@ -98,7 +98,7 @@ const ProductDetail = () => {
     fetchProduct();
   }, [fetchProduct]);
 
-  const handleByNow = async () => {
+  const handleBuyNow = async () => {
     const origin = location.pathname;
 
     if (!isLoggedIn) {
@@ -109,11 +109,11 @@ const ProductDetail = () => {
     }
     let pro = {
       id: id,
-      title: product.title,
-      price: product.price,
-      description: product.description,
+      title: product?.title,
+      price: product?.price,
+      description: product?.description,
       quantity: isValue,
-      image: product.thumbnail,
+      image: product?.thumbnail,
       email: email,
     };
 
@@ -288,7 +288,7 @@ const ProductDetail = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-3 pt-4">
-                  <Buttn text="Buy Now" handleClick={handleByNow} />
+                  <Buttn text="Buy Now" handleClick={handleBuyNow} />
                   <ButtonEmpty
                     text="Add to Cart"
                     handleClick={handleAddToCart.bind(null, {

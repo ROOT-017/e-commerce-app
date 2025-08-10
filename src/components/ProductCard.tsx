@@ -3,7 +3,8 @@ import productImg from "./assets/images__1_-removebg-preview.png";
 import Button from "./ui/Button";
 import { Link } from "react-router-dom";
 import { BsFillSuitHeartFill, BsSuitHeart } from "react-icons/bs";
-import ReactStars from "react-rating-star-with-type";
+// import ReactStars from "react-rating-star-with-type";
+import ReactStars from "react-rating-stars-component";
 import { useAppDispatch } from "../store/hooks";
 import { addProduct } from "../store/cartSlice";
 interface PropsTypes {
@@ -18,7 +19,7 @@ export interface CartItemType {
 }
 
 const ProductCard = ({ product }: PropsTypes) => {
-  const [isLiked, setLiked] = useState(false); // [false,()=>{}
+  const [isLiked, setLiked] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = (item: CartItemType) => {
@@ -60,6 +61,7 @@ const ProductCard = ({ product }: PropsTypes) => {
           <div className="pt-2 pb-4 flex items-center">
             <ReactStars
               value={product.rating}
+              edit={false}
               activeColors={["red", "orange", "#FFCE00", "#9177FF", "#8568FC"]}
             />
             <span className="lg:text-lg text-xs">(2365)</span>

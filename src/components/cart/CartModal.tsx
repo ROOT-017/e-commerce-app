@@ -155,7 +155,7 @@ const CartModalContnt = () => {
             </div>
             <div className="flex justify-between items-center pt-4">
               <p className="text-2xl  font-bold text-gray-500">
-                Total <span>${totalPrice}</span>
+                Total <span>${totalPrice.toFixed(2)}</span>
               </p>
               <div className="lg:flex gap-1 hidden">
                 {" "}

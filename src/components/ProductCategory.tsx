@@ -10,7 +10,7 @@ interface PropsTypes {
 const ProductCategory = ({ products, category, message }: PropsTypes) => {
   return (
     <div className="w-full py-8  font-poppins">
-      <h1 className="lg:pb-4 pb-2 lg:text-3xl text-lg font-poppins font-[500] capitalize">
+      <h1 className="lg:pb-4 pb-2 lg:text-3xl text-lg font-poppins font-medium capitalize">
         {!message && (
           <span className="text-slate-500">
             <span className="text-burnt_sienna-500">{category}</span> For You!
@@ -18,7 +18,7 @@ const ProductCategory = ({ products, category, message }: PropsTypes) => {
         )}
         {message && (
           <>
-            <span className="lg:pb-4 text-slate-500 pb-2 lg:text-3xl text-lg font-poppins font-[500] capitalize">
+            <span className="lg:pb-4 text-slate-500 pb-2 lg:text-3xl text-lg font-poppins font-medium capitalize">
               {message + " "}
             </span>
             <span className="text-burnt_sienna-500 capitalize">{category}</span>

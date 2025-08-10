@@ -11,6 +11,7 @@ interface categoryProps {
 
 const Category = (props: categoryProps) => {
   const { category, image } = props;
+
   return (
     <div className="flex flex-col items-center w-fit">
       {!props.more && (
