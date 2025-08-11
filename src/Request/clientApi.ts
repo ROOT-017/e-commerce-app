@@ -7,7 +7,7 @@ interface requestProps {
   data?: any;
   params?: any;
 }
-const baseURL = import.meta.env.BASE_URL || "https://dummyjson.com";
+const baseURL = import.meta.env.VITE_PRODUCT_BASE_URL || "https://dummyjson.com";
 
 interface RequestProps {
   method: HTTP_METHODS;
