@@ -8,7 +8,6 @@ import { popResultsWithImages } from "../util/popResultsWithImages";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setCategories } from "../store/productSlice";
 import { Category } from "../type";
-import Pagnation from "../components/pagination/Pagination";
 
 const ProductCategories = () => {
   // const [categories, setCategories] = useState([]);
@@ -59,7 +58,9 @@ const ProductCategories = () => {
           </>
         )}
         {categories.length === 0 &&
-          Array.from({ length: 12 }).map(() => <ProductCardSkeletonLoader />)}
+          Array.from({ length: 12 }).map((_, i) => (
+            <ProductCardSkeletonLoader key={i} />
+          ))}
       </div>
       <div>
         {categories.length > 0 && (

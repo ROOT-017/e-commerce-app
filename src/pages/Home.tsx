@@ -229,19 +229,22 @@ const Home = () => {
           ))}
           {categories.length > 0 && <Category category="more" more={true} />}
         </div>
-        {categories.length === 0 && (
-          <>
-            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-          </>
-        )}
+        {categories.length === 0 &&
+          Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton
+              key={i}
+              shape="circle"
+              size="4rem"
+              className="mr-2"
+            ></Skeleton>
+          ))}
       </div>
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
           {products.products.length === 0 &&
-            Array.from({ length: 7 }).map(() => <ProductCardSkeletonLoader />)}
+            Array.from({ length: 7 }).map((_, i) => (
+              <ProductCardSkeletonLoader key={i} />
+            ))}
           {products.products.length > 0 && (
             <ProductCategory
               products={products.products}
@@ -253,7 +256,9 @@ const Home = () => {
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
           {products.products.length === 0 &&
-            Array.from({ length: 7 }).map(() => <ProductCardSkeletonLoader />)}
+            Array.from({ length: 12 }).map((_, i) => (
+              <ProductCardSkeletonLoader key={i} />
+            ))}{" "}
           {searchHistory.products.length > 0 && (
             <ProductCategory
               products={searchHistory.products}

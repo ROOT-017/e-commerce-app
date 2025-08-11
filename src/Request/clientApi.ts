@@ -7,10 +7,7 @@ interface requestProps {
   data?: any;
   params?: any;
 }
-const baseURL = "https://dummyjson.com";
-// const baseURL = "https://fakestoreapi.com";
-
-
+const baseURL = import.meta.env.BASE_URL || "https://dummyjson.com";
 
 interface RequestProps {
   method: HTTP_METHODS;
