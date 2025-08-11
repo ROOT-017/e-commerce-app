@@ -5,6 +5,7 @@ import { useAppDispatch } from "../store/hooks";
 import { toggleSpinderModel, toggleToast } from "../store/modalSlice";
 import { signin } from "../store/authSlice";
 import { SignInWithEmailAndPassword } from "../auth/firebase";
+import Button from "../components/ui/Button";
 // import { , useAppDispatch } from "../store/hooks";
 
 const Signin = () => {
@@ -114,10 +115,10 @@ const Signin = () => {
           >
             {error}
           </p>
-          <div className="flex justify-end pt-4">
+          <div className="flex justify-center pt-4">
             <button
               type="submit"
-              className="bg-linear-to-r from-cambridge_blue-500 to-burnt_sienna-500 py-2 px-4 rounded-lg text-white font-semibold"
+              className="bg-gradient-to-r w-full from-cambridge_blue-500 to-burnt_sienna-500 py-2 px-4 rounded-lg text-white font-semibold"
             >
               Sign In
             </button>

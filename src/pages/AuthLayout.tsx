@@ -85,9 +85,9 @@ const AuthLayout = () => {
                       onClick={handleSigninWithGoogle}
                     />
                   </li>
-                  <li>
+                  {/* <li>
                     <BsFacebook color="#0000ff" />
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

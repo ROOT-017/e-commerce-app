@@ -1,6 +1,5 @@
 import React from "react";
 // import img from "../components/assets/images__1_-removebg-preview.png";
-// import ReactStars from "react-rating-star-with-type";
 import ReactStars from "react-rating-stars-component";
 
 interface CardPropsTypes {

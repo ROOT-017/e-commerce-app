@@ -10,7 +10,6 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // Add this if using absolute imports
       src: "/src",
     },
   },

@@ -1,6 +1,6 @@
 import React from "react";
 import { IoLogoTwitter } from "react-icons/io";
-import { BsInstagram, BsGithub, BsGlobe } from "react-icons/bs";
+import { BsGithub, BsGlobe } from "react-icons/bs";
 import { FaLinkedin } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import logo from "../../components/assets/logo.png";
@@ -31,25 +31,23 @@ const Footer = () => {
               <ul className="flex gap-4 h-full justify-center lg:justify-normal">
                 <li>
                   <a
-                    href={"https://www.twitter.com/RootMultivate"}
+                    href={"https://www.twitter.com/RootMultivates"}
                     target="_blank"
                   >
                     <IoLogoTwitter />
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href={"https://www.instagram.com/jeezyway_terence"}
                     target="_blank"
                   >
                     <BsInstagram />
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a
-                    href={
-                      "https://www.linkedin.com/in/terence-ngwen-238aa5231/"
-                    }
+                    href={"https://www.linkedin.com/in/terence-ngwen/"}
                     target="_blank"
                   >
                     <FaLinkedin />
@@ -121,10 +119,12 @@ const Footer = () => {
         </div>
         <div className="h-[4em] bg-[#000000de]"></div>
         <div className="h-[4em] bg-[#000000de] gap-4 text-sm flex justify-center items-center p-4">
-          &copy;1997-{new Date().getFullYear()}
+          &copy;{new Date().getFullYear()}
           <span className="font-poppins ">Made with &#9829; from Cameroon</span>
           <span className="text-sm text-gray-400">
-            <a href="https://www.twitter.com/RootMultivate">creator @terence</a>
+            <a href="https://www.twitter.com/RootMultivates">
+              creator @terence
+            </a>
           </span>
         </div>
       </div>

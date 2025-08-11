@@ -1,5 +1,5 @@
 import axios from "axios";
-import { HTTP_METHOD } from "../type";
+import { HTTP_METHODS } from "../type";
 
 interface requestProps {
   method: string;
@@ -13,7 +13,7 @@ const baseURL = "https://dummyjson.com";
 
 
 interface RequestProps {
-  method: HTTP_METHOD;
+  method: HTTP_METHODS;
   url: string;
   data?: any;
   params?: Record<string, any>;

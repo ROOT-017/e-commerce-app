@@ -8,6 +8,7 @@ import { popResultsWithImages } from "../util/popResultsWithImages";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setCategories } from "../store/productSlice";
 import { Category } from "../type";
+import Pagnation from "../components/pagination/Pagination";
 
 const ProductCategories = () => {
   // const [categories, setCategories] = useState([]);
@@ -44,6 +45,9 @@ const ProductCategories = () => {
 
   return (
     <div className=" lg:px-0 px-2 pt-4 lg:pt-8">
+      <p className="w-fit lg:text-xl lg:py-6 pb-4 font-poppins text-lg text-gray-500 capitalize">
+        All Categories{" "}
+      </p>
       <div className="flex w-full justify-evenly flex-wrap gap-2 lg:gap-4">
         {categories.length > 0 && (
           <>
@@ -54,22 +58,8 @@ const ProductCategories = () => {
             ))}
           </>
         )}
-        {categories.length === 0 && (
-          <>
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-            <ProductCardSkeletonLoader />
-          </>
-        )}
+        {categories.length === 0 &&
+          Array.from({ length: 12 }).map(() => <ProductCardSkeletonLoader />)}
       </div>
       <div>
         {categories.length > 0 && (

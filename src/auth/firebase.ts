@@ -8,16 +8,13 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-//Inport User type from firebase
-// import { User } from "firebase/auth";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAFMCx8iTGqf4RIWhzJFeJLhYXZn1WNYuc",//process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "-commerce-c12aa.firebaseapp.com",// process.env.REACT_APP_FIREBASE_DOMAIN,
-  projectId: "e-commerce-c12aa",//process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: "e-commerce-c12aa.appspot.com",// process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: "373295186681",//process.env.REACT_APP_FIREBASE_SENDER_ID,
-  appId: "1:373295186681:web:53837b0c3d7764a1fd9828"// process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);

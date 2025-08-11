@@ -4,7 +4,7 @@ import classes from "./Hero.module.css";
 
 const Hero = () => {
   return (
-    <div className="flex w-full pl-4 h-[12em] lg:h-auto bg-burnt_sienna-900 lg:pl-32 font-poppins">
+    <div className="flex w-full pl-4 h-[12em] lg:h-auto bg-burnt_sienna-900 lg:pl-32 font-poppins rounded-xl">
       <div className="lg:w-1/2 m-auto">
         <p className="text-[0.875rem] leading-5 lg:leading-normal  lg:text-[3em]   font-semibold text-cambridge_blue-200">
           Grab Upto 50% Off On

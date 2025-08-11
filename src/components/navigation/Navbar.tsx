@@ -106,7 +106,7 @@ const Navbar = () => {
               )}
             </li>
             <li
-              className={`${bounce} flex gap-2 justify-center items-center hover:bg-cambridge_blue-800 rounded-full p-2 transition-colors duration-300 ease-in-out`}
+              className={`${bounce} cursor-pointer flex gap-2 justify-center items-center hover:bg-cambridge_blue-800 rounded-full p-2 transition-colors duration-300 ease-in-out`}
               onClick={handleClick}
             >
               <span className="text-lg font-semibold text-cambridge_blue-400">

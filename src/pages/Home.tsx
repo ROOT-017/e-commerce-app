@@ -240,17 +240,8 @@ const Home = () => {
       </div>
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
-          {products.products.length === 0 && (
-            <>
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-            </>
-          )}
+          {products.products.length === 0 &&
+            Array.from({ length: 7 }).map(() => <ProductCardSkeletonLoader />)}
           {products.products.length > 0 && (
             <ProductCategory
               products={products.products}
@@ -261,17 +252,8 @@ const Home = () => {
       </div>{" "}
       <div className="px-4 lg:px-0 pb-4">
         <div className="flex flex-wrap gap-2 lg:gap-6">
-          {products.products.length === 0 && (
-            <>
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-              <ProductCardSkeletonLoader />
-            </>
-          )}
+          {products.products.length === 0 &&
+            Array.from({ length: 7 }).map(() => <ProductCardSkeletonLoader />)}
           {searchHistory.products.length > 0 && (
             <ProductCategory
               products={searchHistory.products}
@@ -286,12 +268,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// export const AppLoader = () => {
-//   const userData = JSON.parse(localStorage.getItem("userData")!);
-//   if (userData) {
-
-//     return <Home />;
-//   }
-//   auth.onAuthStateChanged((user) => {});
-// };

@@ -6,7 +6,7 @@ interface Category {
 interface CategoryWithImage extends Category {
   image: string;
 }
-export type HTTP_METHOD = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type HTTP_METHODS = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 interface Review {
   rating: number;
